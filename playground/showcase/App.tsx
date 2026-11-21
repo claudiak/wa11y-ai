@@ -142,7 +142,7 @@ export default function App() {
         <footer className="table-footer"><span>Showing {visible.length} of {accounts.length} sample accounts</span><span>Local session · no backend</span></footer>
       </section>}
       {view === 'settings' && <Settings initial={preferences} onSave={next => { setPreferences(next); setNotice('Preferences saved for this demo session.'); }} />}
-      <footer className="showcase-credit"><span className="credit-icon"><Icon name="widgets" size={22} /></span><div><strong>Built with wa11y-ai</strong><p>Reusable React components, semantic design tokens, and accessibility-focused patterns, composed into a responsive enterprise application.</p></div><a href="../">Explore the design system<Icon name="arrow_outward" size={16} /></a></footer>
+      <footer className="showcase-credit"><span className="credit-icon"><Icon name="widgets" size={22} /></span><div><strong>Built with wa11y-ai</strong><p>Reusable React components, semantic design tokens, and accessibility-focused patterns, composed into a responsive enterprise application.</p></div><span className="creator-credit">Created by <a href="https://claudiakich.com" target="_blank" rel="noopener noreferrer" aria-label="Cláudia Kich (opens in a new tab or window)">Cláudia Kich</a></span></footer>
     </main>
     {adding && <AddAccount onClose={() => setAdding(false)} onAdd={account => { setAccounts(current => [account, ...current]); setAdding(false); setNotice(`${account.name} added. Ready for a great first impression.`); requestAnimationFrame(() => addTrigger.current?.focus()); }} />}
     {detail && <AccountDetails account={detail} onClose={() => setDetail(null)} />}

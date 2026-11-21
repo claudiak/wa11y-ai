@@ -49,4 +49,7 @@
 - Match semantic status to intent; use Action for primary task actions where appropriate. Preserve 3px focus with no gap, including Input/Dropdown's single inset focus border. Avoid unnecessary dependencies, animation, and abstractions.
 - Target WCAG 2.2 AA: semantic landmarks/headings, labels/instructions/errors, keyboard access, usable targets, visible focus, and meaning beyond colour. Restore focus after navigation/removal and reuse built-in accessibility behavior.
 - Check real contrast in each used profile; Neutral primary buttons/badges and selected sidebar text have known failures. Small text and missing font/style values also need review: see [Accessibility checks](../README.md#accessibility-checks) and [Known limitations](../README.md#known-limitations) when relevant. Neither tokens nor components guarantee compliance.
-- Finish with targeted TypeScript/build and essential keyboard/focus, responsive overflow, and composed-behavior checks. Inspect only the affected feature; explicit user requirements override composition defaults.
+- Finish with targeted TypeScript/build and composed-behavior checks; run targeted automated accessibility tests (axe/Playwright or an available equivalent) for changed interfaces.
+- Verify keyboard-only focus order, visible focus, activation, dialogs, navigation, and form errors, as applicable; verify responsive reflow/zoom and contrast for affected screens and profile modes.
+- Report a short accessibility validation summary: what was tested, what passed, what failed, and what could not be verified. Report only checks actually executed; never claim WCAG 2.2 AA compliance solely from automated tests.
+- Scope validation to the affected feature; explicit user requirements override composition defaults.

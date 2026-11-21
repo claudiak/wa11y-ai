@@ -17,5 +17,6 @@
 ## Validation and distribution
 
 - Run `npm run build` for token changes and `npm run validate` before delivery. The package check runs `npm pack --dry-run` against the runtime/CSS/documentation allowlist.
+- For relevant interface changes, run the existing `npm run accessibility:check` against the running playground; follow `docs/ai.md` for targeted application checks, manual verification, and reporting. Disclose failures or unavailable checks.
 - Keep `scripts/` and `tests/` in GitHub; exclude them, playground, and source definitions from npm using `package.json`'s `files` allowlist. Keep `.archive/`, `dist/`, `node_modules/`, and `*.tgz` out of Git; only intentional runtime build output belongs in the package.
 - The playground is local development tooling. Do not publish, deploy, commit, or push unless requested.
