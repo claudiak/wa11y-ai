@@ -1,0 +1,10 @@
+.wa-switch { display: inline-flex; position: relative; align-items: center; justify-content: center; vertical-align: middle; cursor: pointer; }
+.wa-switch .wa-switch__control { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; min-height: 0; margin: 0; padding: 0; opacity: 0; z-index: 1; cursor: inherit; }
+.wa-switch--small { inline-size: 36px; block-size: 20px; }
+.wa-switch--large { inline-size: 54px; block-size: 30px; }
+.wa-switch__visual { position: relative; flex: 0 0 36px; inline-size: 36px; block-size: 20px; pointer-events: none; }
+.wa-switch--large .wa-switch__visual { transform: scale(1.5); transform-origin: center; }
+.wa-switch__visual img { position: absolute; top: 0; left: 0; display: block; }
+.wa-switch[data-state="focused"] { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; border-radius: var(--wa11y-radius-radius-full); }
+.wa-switch[data-state="disabled"] { cursor: not-allowed; }
+@media (forced-colors: active) { .wa-switch .wa-switch__control { opacity: 1; appearance: auto; accent-color: Highlight; } .wa-switch__visual { visibility: hidden; } .wa-switch[data-state="focused"] { outline-color: Highlight; } .wa-switch__control:focus-visible { outline: none; } }

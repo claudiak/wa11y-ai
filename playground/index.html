@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-wa11y-user-profiles-mode="public">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wa11y-ai · Design system playground</title>
+  <link rel="stylesheet" href="https://use.typekit.net/akn7zvi.css">
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="./playground.css">
+  <link rel="stylesheet" href="./.generated/icons.css">
+  <script type="module" src="./.generated/playground.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to tokens</a>
+  <header class="masthead"><a class="brand" href="./" aria-label="wa11y-ai playground"><img src="./assets/avatars/wa11y-favicon.png" width="36" height="36" alt=""><span class="brand-name">wa11y<span>-ai</span></span></a><span class="badge">Design system · v2.0.1</span><div id="header-navigation" class="header-navigation"></div></header>
+  <main id="playground-main">
+    <section class="intro" aria-labelledby="title">
+      <div><p class="eyebrow">A shared foundation</p><h1 id="title">Designed to be reused.</h1><p class="lede">Explore the values, relationships, and styles behind wa11y-ai.<br>One foundation for developers, designers, and AI assistants.</p><p class="showcase-entry"><a href="./showcase/index.html">Explore the dashboard showcase <span aria-hidden="true">↗</span></a></p></div>
+      <dl class="counts"><div><dt>Variables</dt><dd>129</dd></div><div><dt>Collections</dt><dd>8</dd></div><div><dt>Style records</dt><dd>27</dd></div></dl>
+    </section>
+    <div class="toolbar">
+      <div class="field search-field"><label for="search">Find a token or style</label><input id="search" type="search" placeholder="Search by name or reference…"></div>
+      <div class="field"><label for="collection">Collection</label><span class="select-wrap"><select id="collection"><option value="">All collections</option></select></span></div>
+      <div class="field"><label for="profile">User profile</label><span class="select-wrap"><select id="profile"><option>Public</option><option>Logged In</option><option>Admin</option><option>Neutral</option></select></span></div>
+    </div>
+    <nav id="playground-menu" class="categories" aria-label="Token categories">
+      <button type="button" data-category="colours" aria-pressed="true">Colours</button>
+      <button type="button" data-category="typography" aria-pressed="false">Typography</button>
+      <button type="button" data-category="dimensions" aria-pressed="false">Spacing &amp; size</button>
+      <button type="button" data-category="radii" aria-pressed="false">Corner radius</button>
+      <button type="button" data-category="effects" aria-pressed="false">Effects</button>
+      <button type="button" data-category="configuration" aria-pressed="false">Configuration</button>
+      <button type="button" data-category="components" aria-pressed="false">Components</button>
+    </nav>
+    <section id="results" tabindex="-1" aria-labelledby="results-title">
+      <div class="section-heading"><div><h2 id="results-title">Colours</h2><p id="description">Exact palette values, with semantic references preserved.</p></div><p id="result-count" role="status" aria-live="polite"></p></div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
+  <footer id="playground-footer"><span>wa11y-ai · MIT</span></footer>
+  <p id="copy-status" class="sr-only" role="status" aria-live="polite"></p>
+</body>
+</html>

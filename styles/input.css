@@ -1,0 +1,28 @@
+.wa-input { display: flex; flex-direction: column; align-items: stretch; gap: var(--wa11y-spacing-spacing-4); inline-size: 280px; max-inline-size: 100%; color: var(--wa11y-primitives-text-primary); text-align: start; }
+.wa-input, .wa-input * { box-sizing: border-box; }
+.wa-input__heading { display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-8); font-family: var(--wa11y-style-text-label-lg-font-family), sans-serif; font-size: var(--wa11y-style-text-label-sb-font-size); font-weight: var(--wa11y-style-text-label-lg-font-weight); line-height: normal; }
+.wa-input__heading img { display: block; }
+.wa-input__heading > label { margin: 0; font: inherit; letter-spacing: inherit; text-align: start; }
+.wa-input__required { color: var(--wa11y-feedback-destructive-default); }
+.wa-input__box { display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-8); padding: var(--wa11y-spacing-spacing-0) var(--wa11y-spacing-spacing-12); border-radius: var(--wa11y-radius-radius-8); background: var(--wa11y-user-profiles-surface-default); box-shadow: inset 0 0 0 1px var(--wa11y-user-profiles-border-focus); }
+.wa-input__control { flex: 1; min-inline-size: 0; inline-size: 100%; padding: 0; margin: 0; border: 0; border-radius: 0; outline: none; background: transparent; color: var(--wa11y-primitives-text-primary); font-family: var(--wa11y-style-text-body-font-family), sans-serif; font-size: var(--wa11y-style-text-body-font-size); font-weight: var(--wa11y-style-text-body-font-weight); letter-spacing: var(--wa11y-style-text-body-letter-spacing); line-height: normal; }
+.wa-input__control:focus, .wa-input__control:focus-visible { outline: none; outline-offset: 0; box-shadow: none; }
+.wa-input__control::placeholder { color: var(--wa11y-primitives-text-secondary); opacity: 1; }
+.wa-input__icon { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; inline-size: var(--wa11y-size-icon-20); block-size: var(--wa11y-size-icon-20); }
+.wa-input__icon img { display: block; flex-shrink: 0; }
+.wa-input__icon--leading { color: var(--wa11y-primitives-text-secondary); }
+.wa-input__icon--trailing { color: var(--wa11y-user-profiles-primary-default); }
+.wa-input--error .wa-input__icon--leading { color: var(--wa11y-feedback-destructive-default); }
+.wa-input--disabled .wa-input__icon { color: var(--wa11y-feedback-disabled-dark); }
+.wa-input--selected .wa-input__box { background: var(--wa11y-user-profiles-surface-subtle); }
+.wa-input--error .wa-input__box { box-shadow: inset 0 0 0 2px var(--wa11y-feedback-destructive-default); }
+.wa-input--error .wa-input__heading, .wa-input--error .wa-input__helper { color: var(--wa11y-feedback-destructive-default); }
+.wa-input--focus .wa-input__box, .wa-input:not(.wa-input--disabled) .wa-input__box:focus-within { box-shadow: inset 0 0 0 3px var(--wa11y-user-profiles-border-focus); outline: none; }
+.wa-input--disabled .wa-input__heading, .wa-input--disabled .wa-input__control, .wa-input--disabled .wa-input__control::placeholder { color: var(--wa11y-feedback-disabled-dark); -webkit-text-fill-color: var(--wa11y-feedback-disabled-dark); opacity: 1; }
+.wa-input--disabled .wa-input__box { background: var(--wa11y-feedback-disabled-light); box-shadow: inset 0 0 0 1px var(--wa11y-feedback-disabled-medium); }
+.wa-input--disabled .wa-input__control { cursor: not-allowed; }
+.wa-input__helper { margin: 0; padding-left: var(--wa11y-spacing-spacing-12); padding-top: var(--wa11y-spacing-spacing-4); font-family: var(--wa11y-style-text-body-xs-font-family), sans-serif; font-size: var(--wa11y-style-text-body-xs-font-size); font-weight: var(--wa11y-style-text-body-xs-font-weight); line-height: normal; }
+.wa-input__sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (forced-colors: active) { .wa-input__box { border: 1px solid ButtonText; } .wa-input--focus .wa-input__box, .wa-input__box:focus-within { border: 3px solid Highlight; } .wa-input--disabled .wa-input__box { border-color: GrayText; } }
+
+.wa-input:focus-within .wa-input__tip-text { position: static; inline-size: auto; block-size: auto; overflow: visible; clip-path: none; white-space: normal; font-family: var(--wa11y-style-text-body-xs-font-family), sans-serif; font-size: var(--wa11y-style-text-body-xs-font-size); }

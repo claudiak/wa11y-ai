@@ -1,0 +1,5 @@
+.wa-dropdown__box { position: relative; }
+.wa-dropdown__control { appearance: none; padding-inline-end: calc(var(--wa11y-size-icon-16) + var(--wa11y-spacing-spacing-8)); cursor: pointer; }
+.wa-dropdown__chevron { position: absolute; inset-inline-end: var(--wa11y-spacing-spacing-12); inset-block-start: 50%; transform: translateY(-50%); pointer-events: none; }
+.wa-input--disabled .wa-dropdown__chevron { color: var(--wa11y-feedback-disabled-dark); }
+@media (forced-colors: active) { .wa-dropdown__chevron { color: ButtonText; } .wa-input--disabled .wa-dropdown__chevron { color: GrayText; } }

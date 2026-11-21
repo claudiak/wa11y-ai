@@ -1,0 +1,9 @@
+# wa11y-ai
+
+React components and semantic design tokens for responsive, accessible interfaces.
+
+- [AI quick start](docs/ai.md): Read first for interface work; also exported as `wa11y-ai/ai.md`.
+- [Public exports](dist/index.d.ts): Discover APIs; inspect only relevant `dist/components/*.d.ts` declarations.
+- [README](README.md): Human reference; consult only the needed component, installation, mode, or accessibility section.
+- [Repository rules](AGENTS.md): Maintenance instructions for contributors; repository-only, excluded from npm.
+- [Token CSS](styles/tokens.css) / [component CSS](styles/components.css): Import as `wa11y-ai/tokens.css` / `wa11y-ai/components.css`.

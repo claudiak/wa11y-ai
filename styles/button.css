@@ -1,0 +1,147 @@
+/* Shared geometry and states, including user-confirmed Small and Link variants. */
+.wa-button {
+  --wa-button-bg: var(--wa11y-user-profiles-primary-default);
+  --wa-button-fg: var(--wa11y-primitives-text-inverse);
+  --wa-button-border: transparent;
+  --wa-button-border-width: 0px;
+  --wa-button-hover-bg: var(--wa11y-user-profiles-primary-hover);
+  --wa-button-hover-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-hover-border: transparent;
+  --wa-button-hover-border-width: 0px;
+  --wa-button-secondary-bg: var(--wa11y-user-profiles-surface-default);
+  --wa-button-secondary-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-secondary-border: var(--wa11y-user-profiles-border-default);
+  --wa-button-link-fg: var(--wa11y-user-profiles-primary-dark);
+  box-sizing: border-box;
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wa11y-spacing-spacing-8);
+  min-block-size: var(--wa11y-spacing-spacing-40);
+  padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-16);
+  border: 0;
+  border-radius: var(--wa11y-radius-radius-8);
+  background: var(--wa-button-bg);
+  color: var(--wa-button-fg);
+  box-shadow: inset 0 0 0 var(--wa-button-border-width) var(--wa-button-border);
+  font-family: var(--wa11y-style-text-label-sm-sb-font-family), sans-serif;
+  font-size: var(--wa11y-style-text-label-sm-sb-font-size);
+  font-weight: var(--wa11y-style-text-label-sm-sb-font-weight);
+  letter-spacing: var(--wa11y-style-text-label-sm-sb-letter-spacing);
+  line-height: normal;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.wa-button--success {
+  --wa-button-link-fg: var(--wa11y-feedback-success-dark);
+  --wa-button-bg: var(--wa11y-feedback-success-default);
+  --wa-button-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-hover-bg: var(--wa11y-feedback-success-light);
+  --wa-button-hover-fg: var(--wa11y-feedback-success-dark);
+  --wa-button-secondary-fg: var(--wa11y-feedback-success-dark);
+  --wa-button-secondary-border: var(--wa11y-feedback-success-dark);
+}
+.wa-button--warning {
+  --wa-button-link-fg: var(--wa11y-feedback-warning-dark);
+  --wa-button-bg: var(--wa11y-feedback-warning-default);
+  --wa-button-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-hover-bg: var(--wa11y-feedback-warning-light);
+  --wa-button-hover-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-secondary-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-secondary-border: var(--wa11y-feedback-warning-default);
+}
+.wa-button--destructive {
+  --wa-button-link-fg: var(--wa11y-feedback-destructive-dark);
+  --wa-button-bg: var(--wa11y-feedback-destructive-default);
+  --wa-button-hover-bg: var(--wa11y-feedback-destructive-light);
+  --wa-button-hover-fg: var(--wa11y-feedback-destructive-dark);
+  --wa-button-secondary-fg: var(--wa11y-feedback-destructive-default);
+  --wa-button-secondary-border: var(--wa11y-feedback-destructive-default);
+}
+.wa-button--action {
+  --wa-button-link-fg: var(--wa11y-feedback-action-dark);
+  --wa-button-bg: var(--wa11y-feedback-action-default);
+  --wa-button-hover-bg: var(--wa11y-feedback-action-light);
+  --wa-button-hover-fg: var(--wa11y-feedback-action-dark);
+  --wa-button-hover-border: var(--wa11y-feedback-action-dark);
+  --wa-button-hover-border-width: 1px;
+  --wa-button-secondary-fg: var(--wa11y-feedback-action-default);
+  --wa-button-secondary-border: var(--wa11y-feedback-action-default);
+}
+.wa-button--neutral {
+  --wa-button-link-fg: var(--wa11y-primitives-neutral-dark);
+  --wa-button-bg: var(--wa11y-primitives-neutral-black);
+  --wa-button-hover-bg: var(--wa11y-primitives-neutral-grey);
+  --wa-button-hover-fg: var(--wa11y-primitives-text-primary);
+  --wa-button-secondary-fg: var(--wa11y-primitives-neutral-black);
+  --wa-button-secondary-border: var(--wa11y-primitives-neutral-black);
+}
+.wa-button--secondary {
+  --wa-button-bg: var(--wa-button-secondary-bg);
+  --wa-button-fg: var(--wa-button-secondary-fg);
+  --wa-button-border: var(--wa-button-secondary-border);
+  --wa-button-border-width: 1px;
+}
+.wa-button--icon-only {
+  min-inline-size: var(--wa11y-spacing-spacing-40);
+  padding: var(--wa11y-spacing-spacing-8);
+}
+.wa-button--link {
+  --wa-button-bg: transparent;
+  --wa-button-fg: var(--wa-button-link-fg);
+  --wa-button-border-width: 0px;
+}
+.wa-button--small { block-size: 36px; min-block-size: 36px; padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-16); font-size: var(--wa11y-style-text-body-xs-font-size); font-weight: var(--wa11y-style-text-body-xs-font-weight); }
+.wa-button--icon-only { inline-size: 40px; block-size: 40px; padding: var(--wa11y-spacing-spacing-8); }
+.wa-button--small.wa-button--icon-only { inline-size: 36px; min-inline-size: 36px; block-size: 36px; padding: var(--wa11y-spacing-spacing-8); }
+.wa-button--pill { border-radius: var(--wa11y-radius-radius-full); }
+.wa-button--pill.wa-button--icon-only { overflow: hidden; }
+.wa-button__icon { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; }
+.wa-button__icon-image { display: none; flex: 0 0 auto; }
+.wa-button__icon-image--default { display: block; }
+.wa-button__label { white-space: nowrap; }
+@media (hover: hover) {
+  .wa-button.wa-button--link:hover:not(:disabled) { background: var(--wa-button-hover-bg); color: var(--wa-button-hover-fg); filter: none; box-shadow: none; }
+  .wa-button--link:hover:not(:disabled) .wa-button__label { text-decoration: underline; text-underline-offset: .15em; }
+  .wa-button:is(.wa-button--primary, .wa-button--secondary, .wa-button--icon-only):not(.wa-button--link):hover:not(:disabled) {
+    background: var(--wa-button-hover-bg);
+    color: var(--wa-button-hover-fg);
+    box-shadow: inset 0 0 0 var(--wa-button-hover-border-width) var(--wa-button-hover-border);
+  }
+  .wa-button:hover:not(:disabled) .wa-button__icon-image { display: none; }
+  .wa-button:hover:not(:disabled) .wa-button__icon-image--hover { display: block; }
+}
+.wa-button:is(:focus-visible, :active):not(:disabled) {
+  background: var(--wa-button-bg);
+  color: var(--wa-button-fg);
+  box-shadow: inset 0 0 0 var(--wa-button-border-width) var(--wa-button-border);
+  outline: 3px solid var(--wa11y-user-profiles-border-focus);
+  outline-offset: 0;
+}
+.wa-button--secondary:is(:focus-visible, :active):not(:disabled) { --wa-button-border-width: 0px; box-shadow: none; }
+.wa-button--secondary.wa-button--warning:not(.wa-button--link):is(:focus-visible, :active):not(:disabled) { background: var(--wa11y-feedback-warning-light); }
+.wa-button:is(:focus-visible, :active):not(:disabled) .wa-button__icon-image { display: none; }
+.wa-button:is(:focus-visible, :active):not(:disabled) .wa-button__icon-image--focus { display: block; }
+/* For unretrieved disabled variants, reuse the verified Primary disabled palette. */
+.wa-button:disabled {
+  background: var(--wa11y-feedback-disabled-medium);
+  color: var(--wa11y-feedback-disabled-dark);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.wa-button:disabled .wa-button__icon-image { display: none; }
+.wa-button:disabled .wa-button__icon-image--disabled { display: block; }
+.wa-button--link:disabled { background: transparent; box-shadow: none; }
+@media (forced-colors: active) {
+  .wa-button { border: 1px solid ButtonText; box-shadow: none; }
+  .wa-button:disabled { color: GrayText; border-color: GrayText; }
+  .wa-button:is(:focus-visible, :active):not(:disabled) { outline-color: Highlight; }
+  .wa-button__icon { forced-color-adjust: none; background: var(--wa-button-bg); }
+}
+
+.wa-button--primary.wa-button--success { --wa-button-hover-fg: var(--wa11y-primitives-text-primary); }

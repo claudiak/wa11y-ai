@@ -1,0 +1,16 @@
+.wa-radio { position: relative; display: inline-flex; align-items: flex-start; gap: var(--wa11y-spacing-spacing-8); cursor: pointer; color: var(--wa11y-primitives-text-primary); font-family: var(--wa11y-style-text-label-sb-font-family), sans-serif; font-size: var(--wa11y-style-text-label-sb-font-size); font-weight: var(--wa11y-style-text-label-sb-font-weight); line-height: normal; }
+.wa-radio .wa-radio__control { position: absolute; inset-inline-start: 0; inset-block-start: 0; inline-size: 22.5px; block-size: 22px; min-height: 0; margin: 0; padding: 0; opacity: 0; cursor: inherit; }
+.wa-radio__visual { position: relative; flex: 0 0 22.5px; inline-size: 22.5px; block-size: 22px; border-radius: var(--wa11y-radius-radius-full); }
+.wa-radio__visual img { display: block; position: absolute; top: 0; left: 0; }
+.wa-radio__visual .wa-radio__selected { display: none; }
+.wa-radio__control:checked + .wa-radio__visual .wa-radio__unselected { display: none; }
+.wa-radio__control:checked + .wa-radio__visual .wa-radio__selected { display: block; }
+.wa-radio__control:focus-visible + .wa-radio__visual { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; }
+.wa-radio--success { color: var(--wa11y-feedback-success-default); }
+.wa-radio--success .wa-radio__label { color: var(--wa11y-primitives-text-primary); }
+.wa-radio--error { color: var(--wa11y-feedback-destructive-default); }
+.wa-radio--disabled { color: var(--wa11y-feedback-disabled-default); cursor: not-allowed; }
+.wa-radio__sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (forced-colors: active) { .wa-radio { color: CanvasText; } .wa-radio--disabled { color: GrayText; } .wa-radio__control { opacity: 1 !important; z-index: 1; accent-color: Highlight; } .wa-radio__visual { visibility: hidden; } }
+
+@media (forced-colors: active) { .wa-radio__control:focus-visible { outline: 3px solid Highlight; outline-offset: 0; } }

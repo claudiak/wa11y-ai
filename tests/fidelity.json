@@ -1,0 +1,14 @@
+{
+  "description": "Migration regression fingerprints from the verified Figma foundation after user-confirmed corrections. No original export is required to run these checks. User-approved Success/Default colour: #41BA4D. User-approved Gradient Rose: 90deg, #FFEBEB 0%, #D7BAC0 100%, opaque. User-approved Gradient Leaf: 90deg, Brand/Golden lime alias 0%, #66730B 100%, opaque. User-approved Bg Card: 90deg, User Profiles/Primary/Dark alias 0%, Primitives/Neutral/Black alias 100%, opaque. User-approved Gradient Scarlate: 90deg, Brand/Red Scarlet alias 0%, Brand/Public (Old Rose)/Dark alias 100%, opaque.",
+  "counts": {
+    "variables": 129,
+    "aliases": 16,
+    "collections": 8,
+    "styles": 27
+  },
+  "collections": "267e7d7f5dcba984bf876ed8b1fb03cc9e45feeb942359d1860d8bb1239a28d1",
+  "variables": "6f7d543814eec78e9d97584b79a8347d97b66e255cd1dfa25c85131772bec9dd",
+  "styles": "3ff543cd5df05e9cba6aac0065452164a9ad9053cf87ff28fc7990c84b76bde8",
+  "resolvedModes": "8bb05f42d2b0c566eee1fb23e8c5bb9e109edc6499e5f6e357b321f136e43dc4",
+  "css": "954bd0388fa5cd99ad1186ce90a5a512f76830f58d80a0c22c52091bba1ed98f"
+}

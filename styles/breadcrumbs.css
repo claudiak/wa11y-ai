@@ -1,0 +1,13 @@
+.wa-breadcrumb { box-sizing: border-box; display: inline-flex; align-items: center; gap: var(--wa11y-spacing-spacing-12); padding: var(--wa11y-spacing-spacing-4) var(--wa11y-spacing-spacing-8); border-radius: var(--wa11y-radius-radius-4); font-family: var(--wa11y-style-text-body-sm-font-family), sans-serif; font-size: var(--wa11y-style-text-body-sm-font-size); line-height: normal; text-decoration: none; }
+.wa-breadcrumb--link { color: var(--wa11y-feedback-action-dark); font-weight: var(--wa11y-style-text-body-sm-font-weight); letter-spacing: var(--wa11y-style-text-body-sm-letter-spacing); }
+.wa-breadcrumb--link .wa-icon { flex-shrink: 0; }
+.wa-breadcrumb--current { color: var(--wa11y-primitives-text-primary); font-weight: var(--wa11y-style-text-label-sm-sb-font-weight); letter-spacing: 0; }
+.wa-breadcrumb--hover, .wa-breadcrumb--focus, .wa-breadcrumb:hover, .wa-breadcrumb:focus-visible { background: var(--wa11y-user-profiles-primary-hover); }
+.wa-breadcrumb--focus, .wa-breadcrumb:focus-visible { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; }
+.wa-breadcrumb--link.wa-breadcrumb--focus, .wa-breadcrumb--link:focus-visible { font-size: var(--wa11y-style-text-body-font-size); font-weight: var(--wa11y-style-text-body-font-weight); letter-spacing: var(--wa11y-style-text-body-letter-spacing); }
+.wa-breadcrumb--current.wa-breadcrumb--focus { font-weight: var(--wa11y-style-text-body-sm-font-weight); letter-spacing: var(--wa11y-style-text-body-sm-letter-spacing); }
+.wa-breadcrumbs-group ol { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.wa-breadcrumbs-group li { display: inline-flex; min-inline-size: 0; }
+.wa-breadcrumbs-group .wa-breadcrumb { overflow-wrap: anywhere; }
+.wa-breadcrumbs-group .wa-breadcrumb--current { font-size: var(--wa11y-style-text-h4-font-size); font-weight: var(--wa11y-style-text-h4-font-weight); }
+@media (forced-colors: active) { .wa-breadcrumb--link { color: LinkText; } .wa-breadcrumb--current { color: CanvasText; } .wa-breadcrumb--focus, .wa-breadcrumb:focus-visible { outline-color: Highlight; } }

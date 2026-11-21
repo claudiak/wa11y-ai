@@ -1,0 +1,17 @@
+{
+  "name": "wa11y-ai-dashboard-showcase",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "typecheck": "../../node_modules/.bin/tsc -p tsconfig.json",
+    "check": "node check.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "dependencies": {
+    "recharts": "^3.11.0"
+  }
+}

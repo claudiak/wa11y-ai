@@ -1,0 +1,35 @@
+.wa-sidebar-item, .wa-sidebar-title, .wa-sidebar-subitem__button { box-sizing: border-box; display: flex; align-items: center; border: 0; margin: 0; background: transparent; color: var(--wa11y-primitives-text-primary); font-family: var(--wa-sidebar-font-family, 'Roboto Flex'), sans-serif; cursor: pointer; text-align: start; }
+.wa-sidebar-item { gap: var(--wa11y-spacing-spacing-8); padding: var(--wa11y-spacing-spacing-12); inline-size: 275px; max-inline-size: 100%; min-block-size: 48px; border-radius: var(--wa11y-radius-radius-12); font-size: var(--wa11y-style-text-body-sm-font-size); font-weight: var(--wa11y-style-text-label-sb-font-weight); line-height: var(--wa11y-spacing-spacing-20); text-transform: uppercase; }
+.wa-sidebar-item__icon { display: inline-flex; flex-shrink: 0; }
+.wa-sidebar-item__label { flex: 1; min-inline-size: 0; overflow-wrap: anywhere; }
+.wa-sidebar-item--collapsed { inline-size: 48px; }
+.wa-sidebar-item--selected, .wa-sidebar-item--focus, .wa-sidebar-subitem__button--selected, .wa-sidebar-subitem__button--focus { background: var(--wa11y-user-profiles-primary-selected); }
+.wa-sidebar-item--hover, .wa-sidebar-item:hover:not(:disabled), .wa-sidebar-subitem__button--hover, .wa-sidebar-subitem__button:hover:not(:disabled) { background: var(--wa11y-user-profiles-primary-hover); }
+.wa-sidebar-item--focus, .wa-sidebar-item:focus-visible { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; }
+.wa-sidebar-title { inline-size: 260px; max-inline-size: 100%; gap: var(--wa11y-spacing-spacing-8); padding: var(--wa11y-spacing-spacing-16) var(--wa11y-spacing-spacing-20); background: var(--wa11y-primitives-surface-default); border-block-end: 1px solid var(--wa11y-user-profiles-border-hover); border-start-start-radius: var(--wa11y-radius-radius-12); border-start-end-radius: var(--wa11y-radius-radius-12); font-size: var(--wa11y-style-text-body-lg-medium-font-size); font-weight: var(--wa11y-style-text-label-sb-font-weight); line-height: normal; }
+.wa-sidebar-title img { display: block; inline-size: var(--wa11y-size-icon-24); block-size: var(--wa11y-size-icon-24); object-fit: cover; border-radius: var(--wa11y-radius-radius-8); flex-shrink: 0; }
+.wa-sidebar-title > span:not(.wa-icon) { flex: 1; min-inline-size: 0; }
+.wa-sidebar-title--collapsed { inline-size: 64px; }
+.wa-sidebar-title:focus-visible, .wa-sidebar__collapse:focus-visible, .wa-sidebar-subitem__button:focus-visible, .wa-sidebar-subitem__button--focus { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; }
+.wa-sidebar-subitem { box-sizing: border-box; inline-size: 275px; max-inline-size: 100%; padding-inline-start: var(--wa11y-spacing-spacing-40); }
+.wa-sidebar-subitem__rail { border-inline-start: 1px solid var(--wa11y-user-profiles-border-hover); padding-inline-start: var(--wa11y-spacing-spacing-12); }
+.wa-sidebar-subitem__button { inline-size: 100%; padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-12); border-radius: var(--wa11y-radius-radius-8); font-size: 13px; font-weight: var(--wa11y-style-text-body-sm-font-weight); line-height: var(--wa11y-spacing-spacing-20); overflow-wrap: anywhere; }
+.wa-sidebar-subitem--compact { inline-size: auto; padding: 0; }
+.wa-sidebar-subitem--compact .wa-sidebar-subitem__rail { border: 0; padding: 0; }
+.wa-sidebar-popover { box-sizing: border-box; display: flex; flex-direction: column; gap: var(--wa11y-spacing-spacing-4); inline-size: 150px; padding: var(--wa11y-spacing-spacing-8); border: 1px solid var(--wa11y-user-profiles-border-hover); border-radius: var(--wa11y-radius-radius-12); background: var(--wa11y-primitives-surface-default); box-shadow: var(--wa11y-style-effect-elevation-3); }
+.wa-sidebar-popover .wa-sidebar-subitem { inline-size: 100%; }
+.wa-sidebar-dropdown { position: relative; inline-size: 275px; max-inline-size: 100%; }
+.wa-sidebar-dropdown__list { padding-block: var(--wa11y-spacing-spacing-8); }
+.wa-sidebar-dropdown__list .wa-sidebar-subitem__button { padding-block: 6.5px; }
+.wa-sidebar-dropdown--collapsed { inline-size: 48px; }
+.wa-sidebar-dropdown--collapsed > .wa-sidebar-popover { position: absolute; inset-inline-start: 22px; inset-block-start: 30px; z-index: 10; }
+.wa-sidebar { --wa-sidebar-header-background: #f1c6d5; position: relative; inline-size: 291px; max-inline-size: 100%; }
+.wa-sidebar--collapsed { inline-size: 64px; }
+.wa-sidebar > .wa-sidebar-title { inline-size: 100%; background: var(--wa-sidebar-header-background); }
+.wa-sidebar__items { display: flex; flex-direction: column; gap: 6px; padding: var(--wa11y-spacing-spacing-8); background: var(--wa11y-user-profiles-surface-subtle); border-end-start-radius: var(--wa11y-radius-radius-12); border-end-end-radius: var(--wa11y-radius-radius-12); }
+.wa-sidebar__collapse { position: absolute; inset-inline-end: -14px; inset-block-start: 45px; display: inline-flex; align-items: center; justify-content: center; inline-size: 29px; block-size: 24px; padding: 0; border: 0; border-radius: var(--wa11y-radius-radius-8); background: var(--wa11y-primitives-surface-default); color: var(--wa11y-primitives-text-secondary); cursor: pointer; }
+.wa-sidebar__collapse .wa-icon { transform: rotate(90deg); }
+.wa-sidebar__caption { box-sizing: border-box; min-block-size: 20px; padding-inline: var(--wa11y-spacing-spacing-20) var(--wa11y-spacing-spacing-4); font-family: var(--wa-sidebar-font-family, 'Roboto Flex'), sans-serif; font-size: var(--wa11y-style-text-body-xs-font-size); color: var(--wa-sidebar-caption-colour, #999); text-transform: uppercase; }
+.wa-sidebar__sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wa-sidebar-item:disabled, .wa-sidebar-title:disabled, .wa-sidebar-subitem__button:disabled { cursor: not-allowed; }
+@media (forced-colors: active) { .wa-sidebar-item:focus-visible, .wa-sidebar-item--focus, .wa-sidebar-subitem__button:focus-visible, .wa-sidebar-subitem__button--focus { outline-color: Highlight; } .wa-sidebar-popover { border-color: CanvasText; } [class*='wa-sidebar'][aria-current='page'] { border: 1px solid Highlight; } }

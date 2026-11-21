@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="36" height="20" viewBox="0 0 36 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Switch Small">
+<path d="M10 1H26C30.9706 1 35 5.02944 35 10C35 14.9706 30.9706 19 26 19H10C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1Z" fill="white"/>
+<path d="M10 1H26C30.9706 1 35 5.02944 35 10C35 14.9706 30.9706 19 26 19H10C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1Z" stroke="black" stroke-width="2"/>
+<circle id="Ellipse 1" cx="10" cy="10" r="6" fill="#9E4E5E"/>
+</g>
+</svg>

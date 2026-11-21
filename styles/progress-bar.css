@@ -1,0 +1,14 @@
+.wa-progress {
+  --wa-progress-fill: var(--wa11y-feedback-action-default);
+  --wa-progress-track: color-mix(in srgb, var(--wa11y-primitives-surface-default) 60%, transparent);
+  --wa-progress-label: var(--wa11y-primitives-text-secondary);
+  display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-12);
+  inline-size: 333px; max-inline-size: 100%;
+}
+.wa-progress--complete { --wa-progress-track: var(--wa11y-primitives-surface-default); }
+.wa-progress progress { appearance: none; flex: 1; min-inline-size: 0; inline-size: 300px; block-size: 5px; border: 0; border-radius: var(--wa11y-radius-radius-full); overflow: hidden; background: var(--wa-progress-track); color: var(--wa-progress-fill); }
+.wa-progress progress::-webkit-progress-bar { background: var(--wa-progress-track); border-radius: var(--wa11y-radius-radius-full); }
+.wa-progress progress::-webkit-progress-value { background: var(--wa-progress-fill); border-radius: var(--wa11y-radius-radius-full); }
+.wa-progress progress::-moz-progress-bar { background: var(--wa-progress-fill); border-radius: var(--wa11y-radius-radius-full); }
+.wa-progress__percentage { flex-shrink: 0; min-inline-size: 21px; color: var(--wa-progress-label); font-family: var(--wa-progress-font-family, 'Roboto Flex'), sans-serif; font-size: var(--wa11y-style-text-body-xxxs-medium-font-size); font-weight: var(--wa11y-style-text-body-sm-font-weight); line-height: normal; letter-spacing: 0; white-space: nowrap; }
+@media (forced-colors: active) { .wa-progress progress { forced-color-adjust: none; --wa-progress-fill: Highlight; --wa-progress-track: Canvas; outline: 1px solid CanvasText; } .wa-progress__percentage { color: CanvasText; } }

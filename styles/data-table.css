@@ -1,0 +1,28 @@
+.wa-data-header, .wa-data-cell { box-sizing: border-box; text-align: start; vertical-align: middle; font-family: var(--wa11y-style-text-body-font-family), sans-serif; color: var(--wa11y-primitives-text-primary); line-height: normal; }
+.wa-data-header { padding: 0; background: var(--wa11y-user-profiles-primary-hover); border-block-end: 1px solid var(--wa11y-user-profiles-border-default); font-size: var(--wa11y-style-text-body-sm-font-size); font-weight: var(--wa11y-style-text-body-sm-font-weight); letter-spacing: var(--wa11y-style-text-body-sm-letter-spacing); }
+.wa-data-header__content, .wa-data-header__sort { box-sizing: border-box; display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-8); min-block-size: 33px; padding: var(--wa11y-spacing-spacing-4) var(--wa11y-spacing-spacing-8); }
+.wa-data-header--semibold { font-size: var(--wa11y-style-text-label-sb-font-size); font-weight: var(--wa11y-style-text-label-sb-font-weight); letter-spacing: 0; }
+.wa-data-header--semibold .wa-data-header__content, .wa-data-header--semibold .wa-data-header__sort { padding-block-start: 5px; padding-block-end: var(--wa11y-spacing-spacing-8); }
+.wa-data-header__sort { inline-size: 100%; border: 0; background: transparent; color: inherit; font: inherit; letter-spacing: inherit; text-align: start; cursor: pointer; }
+.wa-data-header__sort .wa-icon { flex-shrink: 0; }
+.wa-data-header--selection { padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-16); }
+.wa-data-header .wa-checkbox__control:indeterminate + .wa-checkbox__visual { border: var(--wa11y-spacing-spacing-2) solid currentColor; }
+.wa-data-header .wa-checkbox__control:indeterminate + .wa-checkbox__visual img { display: none; }
+.wa-data-header .wa-checkbox__control:indeterminate + .wa-checkbox__visual::after { content: ''; position: absolute; inset-inline: var(--wa11y-spacing-spacing-4); inset-block-start: 50%; block-size: var(--wa11y-spacing-spacing-2); background: currentColor; transform: translateY(-50%); }
+.wa-data-header__sort:focus-visible, .wa-data-cell a:focus-visible { outline: 3px solid var(--wa11y-user-profiles-border-focus); outline-offset: 0; }
+.wa-data-cell { padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-16) var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-8); min-block-size: 40px; font-size: var(--wa11y-style-text-body-font-size); font-weight: var(--wa11y-style-text-body-font-weight); letter-spacing: var(--wa11y-style-text-body-letter-spacing); }
+.wa-data-cell__content { display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-8); min-inline-size: 0; }
+.wa-data-cell--small { font-size: var(--wa11y-style-text-body-sm-font-size); font-weight: var(--wa11y-style-text-body-sm-font-weight); letter-spacing: var(--wa11y-style-text-body-sm-letter-spacing); }
+.wa-data-cell__text { overflow-wrap: anywhere; }
+.wa-data-cell a { color: var(--wa11y-feedback-action-default); text-decoration: none; }
+.wa-data-cell a:hover { text-decoration: underline; }
+.wa-data-cell--multi-select, .wa-data-cell--single-select { padding-inline-start: var(--wa11y-spacing-spacing-16); padding-inline-end: var(--wa11y-spacing-spacing-8); }
+.wa-data-cell--buttons { padding: var(--wa11y-spacing-spacing-8); min-block-size: 48px; }
+.wa-data-cell--buttons .wa-data-cell__content { justify-content: flex-end; }
+.wa-data-cell--slot { padding: 0; }
+.wa-data-cell--slot .wa-data-cell__content { min-block-size: 40px; }
+.wa-data-header .wa-checkbox, .wa-data-cell .wa-checkbox, .wa-data-cell .wa-radio { vertical-align: middle; }
+.wa-data-header .wa-checkbox__visual, .wa-data-cell .wa-checkbox__visual { border-radius: 0; }
+tbody > tr:has(> .wa-data-cell):is(:hover, :focus-within) > .wa-data-cell { background: var(--wa11y-user-profiles-primary-selected); }
+tbody > tr:has(> .wa-data-cell):is(:hover, :focus-within) .wa-avatar-listing { background: transparent; }
+@media (forced-colors: active) { .wa-data-header { background: Canvas; border-color: CanvasText; } .wa-data-header__sort:focus-visible, .wa-data-cell a:focus-visible { outline-color: Highlight; } }

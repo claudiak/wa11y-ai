@@ -1,0 +1,19 @@
+.wa-tooltip-anchor { position: relative; display: inline-flex; }
+.wa-tooltip { box-sizing: border-box; position: absolute; z-index: 30; display: flex; flex-direction: column; align-items: center; gap: var(--wa11y-spacing-spacing-4); inline-size: max-content; max-inline-size: min(280px, calc(100vw - 32px)); padding: var(--wa11y-spacing-spacing-8) var(--wa11y-spacing-spacing-12); border: 1px solid var(--wa11y-user-profiles-border-default); border-radius: var(--wa11y-radius-radius-4); background: var(--wa11y-primitives-text-primary); color: var(--wa11y-primitives-text-inverse); box-shadow: var(--wa11y-style-effect-elevation-1); font-family: var(--wa11y-style-text-body-font-family), sans-serif; line-height: normal; text-align: center; overflow-wrap: anywhere; }
+.wa-tooltip--bottom { inset-block-end: calc(100% + 8px); inset-inline-start: 50%; transform: translateX(-50%); }
+.wa-tooltip--top { inset-block-start: calc(100% + 8px); inset-inline-start: 50%; transform: translateX(-50%); }
+.wa-tooltip--left { inset-inline-start: calc(100% + 8px); inset-block-start: 50%; transform: translateY(-50%); align-items: flex-start; text-align: start; }
+.wa-tooltip--right { inset-inline-end: calc(100% + 8px); inset-block-start: 50%; transform: translateY(-50%); align-items: flex-end; text-align: end; }
+.wa-tooltip__title { font-size: var(--wa11y-style-text-label-sb-font-size); font-weight: var(--wa11y-style-text-label-sb-font-weight); }
+.wa-tooltip__body { font-size: var(--wa11y-style-text-body-sm-font-size); font-weight: var(--wa11y-style-text-body-sm-font-weight); letter-spacing: var(--wa11y-style-text-body-sm-letter-spacing); }
+.wa-tooltip__arrow { position: absolute; display: flex; align-items: center; justify-content: center; inline-size: 11.314px; block-size: 11.314px; pointer-events: none; }
+.wa-tooltip__arrow > span { position: relative; inline-size: 8px; block-size: 8px; transform: rotate(45deg); }
+.wa-tooltip__arrow img { position: absolute; inset: 0; display: block; }
+.wa-tooltip--bottom .wa-tooltip__arrow { inset-block-end: -6.36px; left: calc(50% + .5px); transform: translateX(-50%); }
+.wa-tooltip--top .wa-tooltip__arrow { inset-block-start: -6.36px; left: calc(50% + .5px); transform: translateX(-50%); }
+.wa-tooltip--top .wa-tooltip__arrow > span { transform: rotate(-45deg) scaleY(-1); }
+.wa-tooltip--left .wa-tooltip__arrow { left: -6.36px; top: calc(50% + .5px); transform: translateY(-50%); }
+.wa-tooltip--left .wa-tooltip__arrow > span { transform: rotate(135deg); }
+.wa-tooltip--right .wa-tooltip__arrow { right: -6.36px; top: calc(50% + .5px); transform: translateY(-50%); }
+.wa-tooltip--right .wa-tooltip__arrow > span { transform: rotate(45deg) scaleY(-1); }
+@media (forced-colors: active) { .wa-tooltip { background: Canvas; color: CanvasText; border-color: CanvasText; } .wa-tooltip__arrow { display: none; } }
