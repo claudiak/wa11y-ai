@@ -40,6 +40,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
       onPointerDown={e => { setPressed(true); onPointerDown?.(e); }}
       onPointerUp={e => { setPressed(false); onPointerUp?.(e); }}
       onPointerCancel={e => { setPressed(false); onPointerCancel?.(e); }} />
-    <span className="wa-switch__visual" aria-hidden="true"><img src={src} width={36} height={20} alt="" /></span>
+    <span className="wa-switch__visual" aria-hidden="true">{isDisabled || assetBaseUrl ? <img src={src} width={36} height={20} alt="" /> :
+      <svg width={36} height={20} viewBox="0 0 36 20" fill="none" aria-hidden="true" focusable="false">
+        <path className="wa-switch__track" d={isOn
+          ? 'M0 10C0 4.47715 4.47715 0 10 0H26C31.5228 0 36 4.47715 36 10V10C36 15.5228 31.5228 20 26 20H10C4.47715 20 0 15.5228 0 10V10Z'
+          : 'M10 1H26C30.9706 1 35 5.02944 35 10C35 14.9706 30.9706 19 26 19H10C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1Z'} />
+        <circle className="wa-switch__thumb" cx={isOn ? 24 : 10} cy={10} r={isOn ? 8 : 6} />
+      </svg>}
+    </span>
   </span>;
 });

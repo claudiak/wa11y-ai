@@ -24,20 +24,52 @@
       <div class="field"><label for="collection">Collection</label><span class="select-wrap"><select id="collection"><option value="">All collections</option></select></span></div>
       <div class="field"><label for="profile">User profile</label><span class="select-wrap"><select id="profile"><option>Public</option><option>Logged In</option><option>Admin</option><option>Neutral</option></select></span></div>
     </div>
-    <nav id="playground-menu" class="categories" aria-label="Token categories">
-      <button type="button" data-category="colours" aria-pressed="true">Colours</button>
+    <nav id="playground-menu" class="categories" aria-label="Playground categories">
+      <button type="button" data-category="components" aria-pressed="true">Components</button>
+      <button type="button" data-category="colours" aria-pressed="false">Colours</button>
       <button type="button" data-category="typography" aria-pressed="false">Typography</button>
       <button type="button" data-category="dimensions" aria-pressed="false">Spacing &amp; size</button>
       <button type="button" data-category="radii" aria-pressed="false">Corner radius</button>
       <button type="button" data-category="effects" aria-pressed="false">Effects</button>
-      <button type="button" data-category="configuration" aria-pressed="false">Configuration</button>
-      <button type="button" data-category="components" aria-pressed="false">Components</button>
+      <button type="button" data-category="accessibility" aria-pressed="false">Accessibility</button>
     </nav>
     <section id="results" tabindex="-1" aria-labelledby="results-title">
       <div class="section-heading"><div><h2 id="results-title">Colours</h2><p id="description">Exact palette values, with semantic references preserved.</p></div><p id="result-count" role="status" aria-live="polite"></p></div>
       <div id="grid" class="grid"></div>
     </section>
   </main>
+  <template id="accessibility-guidance">
+    <div class="accessibility-view">
+      <div class="accessibility-guides">
+        <section class="card accessibility-panel" aria-labelledby="accessibility-designers"><h3 id="accessibility-designers">For designers</h3><ul>
+          <li>Check colour contrast and readable typography.</li>
+          <li>Define visible focus and interaction states.</li>
+          <li>Provide meaningful labels, instructions, and error messages.</li>
+          <li>Consider responsive layouts, zoom, and reflow.</li>
+        </ul></section>
+        <section class="card accessibility-panel" aria-labelledby="accessibility-developers"><h3 id="accessibility-developers">For developers</h3><ul>
+          <li>Preserve native HTML semantics and built-in component behaviour.</li>
+          <li>Provide accessible names for interactive controls.</li>
+          <li>Support keyboard interaction and logical focus management.</li>
+          <li>Communicate errors, status changes, and selected states accessibly.</li>
+        </ul></section>
+        <section class="card accessibility-panel" aria-labelledby="accessibility-ship"><h3 id="accessibility-ship">Before you ship</h3><ul>
+          <li>Run automated accessibility checks.</li>
+          <li>Test keyboard navigation and visible focus.</li>
+          <li>Verify contrast, zoom, and responsive reflow.</li>
+          <li>Test screen reader behaviour where relevant.</li>
+          <li>Document unresolved accessibility issues.</li>
+        </ul></section>
+      </div>
+      <section class="card accessibility-panel" aria-labelledby="accessibility-limitations"><h3 id="accessibility-limitations">Known limitations</h3>
+        <p>wa11y-ai components do not automatically guarantee WCAG 2.2 AA compliance. Accessibility depends on content, composition, and validation in context; automated checks alone cannot establish compliance.</p>
+        <p>Review the README’s <a href="https://github.com/claudiak/wa11y-ai#accessibility-checks">accessibility checks</a> and <a href="https://github.com/claudiak/wa11y-ai#known-limitations">known limitations</a>, including profile contrast and incomplete styles.</p>
+      </section>
+      <section class="card accessibility-panel accessibility-cta" aria-labelledby="accessibility-further"><div><h3 id="accessibility-further">Go further with wA11y</h3><p>Explore practical accessibility guidance and learning resources.</p></div>
+        <a class="wa-button wa-button--primary wa-button--action wa-button--default" href="https://wa11y.io" target="_blank" rel="noopener noreferrer" aria-describedby="wa11y-external-note">Explore wa11y.io</a><span id="wa11y-external-note" class="sr-only">Opens in a new tab or window.</span>
+      </section>
+    </div>
+  </template>
   <footer id="playground-footer"><span class="playground-credit"><span>wa11y-ai · MIT</span><span aria-hidden="true">|</span><span class="creator-credit">Created by <a href="https://claudiakich.com" target="_blank" rel="noopener noreferrer" aria-label="Cláudia Kich (opens in a new tab or window)">Cláudia Kich</a></span></span></footer>
   <p id="copy-status" class="sr-only" role="status" aria-live="polite"></p>
 </body>

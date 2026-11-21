@@ -187,16 +187,16 @@
 }
 
 :root[data-wa11y-user-profiles-mode="neutral"] {
-  --wa11y-user-profiles-primary-default: var(--wa11y-primitives-neutral-light-grey);
-  --wa11y-user-profiles-primary-hover: #bbbbbb;
+  --wa11y-user-profiles-primary-default: var(--wa11y-primitives-neutral-dark);
+  --wa11y-user-profiles-primary-hover: var(--wa11y-primitives-neutral-grey);
   --wa11y-user-profiles-surface-subtle: rgba(0, 0, 0, 0.05);
   --wa11y-user-profiles-border-default: var(--wa11y-primitives-neutral-light-grey);
   --wa11y-user-profiles-border-focus: #000000;
   --wa11y-user-profiles-border-hover: #8d8a9e;
-  --wa11y-user-profiles-primary-selected: #676767;
+  --wa11y-user-profiles-primary-selected: var(--wa11y-primitives-neutral-grey);
   --wa11y-user-profiles-surface-default: #ffffff;
   --wa11y-user-profiles-border-strong: #000000;
-  --wa11y-user-profiles-primary-dark: #222222;
+  --wa11y-user-profiles-primary-dark: var(--wa11y-primitives-neutral-dark);
 }
 
 :root {

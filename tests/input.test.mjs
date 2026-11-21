@@ -75,8 +75,9 @@ test('Switch Large/Small support keyboard focus, Space toggling, and disabled be
   for (const size of ['large', 'small']) {
     const view = render(h(Switch, { size, 'aria-label': 'Notifications', defaultOn: false }));
     const control = view.getByRole('switch', { name: 'Notifications' });
-    assert.match(view.container.querySelector('img').src, /eace5\.svg$/);
-    assert.equal(view.container.querySelector('.wa-switch__track'), null);
+    assert.equal(view.container.querySelector('svg').getAttribute('viewBox'), '0 0 36 20');
+    assert.equal(view.container.querySelector('.wa-switch__thumb').getAttribute('cx'), '10');
+    assert.equal(view.container.querySelector('.wa-switch__track').tagName, 'path');
     await user.tab(); assert.equal(document.activeElement, control);
     await user.keyboard(' '); assert.equal(control.checked, true);
     await user.keyboard(' '); assert.equal(control.checked, false);

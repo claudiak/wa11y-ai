@@ -288,7 +288,7 @@ function AvatarListingPlayground() {
         <output aria-live="polite">{selected ? `Activated ${selected}` : 'Select a listing'}</output>
       </div>
       <div className="button-matrix">{([40, 32, 24, 16] as const).map(size => <article className="button-matrix-group" key={size}><h4>{size}px</h4><div>
-        {(['default', 'hover', 'focus'] as const).map(state => <AvatarListing key={state} avatar={claudiaAvatar} size={size} state={state}
+        {(['default', 'focus'] as const).map(state => <AvatarListing key={state} avatar={claudiaAvatar} size={size} state={state}
           hasDetails={hasDetails} hasDescription={hasDescription} hasDragDrop={hasDragDrop} onClick={() => setSelected(`${size}px ${state}`)} />)}
       </div></article>)}</div>
     </div>
@@ -297,21 +297,23 @@ function AvatarListingPlayground() {
 
 function CardPlayground() {
   const [message, setMessage] = useState('Try Skip or Start Now');
-  const [details, setDetails] = useState(true);
+  const [options, setOptions] = useState({ tag: true, recommendation: true, metaRow: true, progressBar: true, avatar: true });
   const [progress, setProgress] = useState(50);
   const participants = [claudiaAvatar, { src: avatarPhoto('Gilmar'), alt: 'Gilmar' }, { src: avatarPhoto('Anne'), alt: 'Anne' }];
   const types: CardType[] = ['full', 'image', 'simple', 'slot'];
   return <section className="component-section" aria-labelledby="card-preview-heading">
     <h3 id="card-preview-heading">Card</h3>
     <div className="button-matrix-group">
-      <label className="checkbox-field"><input type="checkbox" checked={details} onChange={e => setDetails(e.target.checked)} />Optional recommendations, metadata, progress and author</label>
-      <label htmlFor="card-progress">Progress: {progress}%</label><input id="card-progress" type="range" min={0} max={100} value={progress} onChange={e => setProgress(Number(e.target.value))} />
+      <div>{([['tag', 'Tag'], ['recommendation', 'Recommendation'], ['metaRow', 'Metadata'], ['progressBar', 'Stepper / progress'], ['avatar', 'Author avatar']] as const).map(([key, label]) =>
+        <label className="checkbox-field" key={key}><input type="checkbox" checked={options[key]} onChange={e => setOptions(current => ({ ...current, [key]: e.target.checked }))} />{label}</label>)}
+      </div>
+      <label htmlFor="card-progress">Progress: {progress}%</label><input id="card-progress" type="range" min={0} max={100} value={progress} disabled={!options.progressBar} onChange={e => setProgress(Number(e.target.value))} />
       <output aria-live="polite">{message}</output>
     </div>
     {(['default'] as const).map(state => <section key={state} aria-label={`${state} cards`}>
       <h4>{state}</h4><div className="card-showcase">
         {types.map(type => <Card key={type} type={type} state={state} participants={participants} additionalCount={22}
-          tag={details} recommendation={details} metaRow={details} progressBar={details} avatar={details} progress={progress}
+          {...options} progress={progress}
           image={{ src: '/playground/assets/cards/memory.png', alt: 'A student writing at a desk with a laptop' }}
           onSkip={() => setMessage(`Skipped ${type} card`)} onStart={() => setMessage(`Started ${type} card`)}
           author={<AvatarListing title="Anne Guedes" description="10 min" avatar={{ src: avatarPhoto('Anne') }} onClick={() => setMessage('Opened Anne Guedes')} />}>

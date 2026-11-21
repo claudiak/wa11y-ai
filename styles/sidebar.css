@@ -23,7 +23,7 @@
 .wa-sidebar-dropdown__list .wa-sidebar-subitem__button { padding-block: 6.5px; }
 .wa-sidebar-dropdown--collapsed { inline-size: 48px; }
 .wa-sidebar-dropdown--collapsed > .wa-sidebar-popover { position: absolute; inset-inline-start: 22px; inset-block-start: 30px; z-index: 10; }
-.wa-sidebar { --wa-sidebar-header-background: #f1c6d5; position: relative; inline-size: 291px; max-inline-size: 100%; }
+.wa-sidebar { --wa-sidebar-header-background: var(--wa11y-user-profiles-primary-hover); position: relative; inline-size: 291px; max-inline-size: 100%; }
 .wa-sidebar--collapsed { inline-size: 64px; }
 .wa-sidebar > .wa-sidebar-title { inline-size: 100%; background: var(--wa-sidebar-header-background); }
 .wa-sidebar__items { display: flex; flex-direction: column; gap: 6px; padding: var(--wa11y-spacing-spacing-8); background: var(--wa11y-user-profiles-surface-subtle); border-end-start-radius: var(--wa11y-radius-radius-12); border-end-end-radius: var(--wa11y-radius-radius-12); }

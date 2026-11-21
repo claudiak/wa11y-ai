@@ -32,6 +32,9 @@ small { font-size: var(--wa11y-style-text-body-xs-font-size); }
 .workspace-name { font-weight: var(--wa11y-style-text-label-sm-sb-font-weight); }
 .back-to-system { margin-inline-start: auto; }
 .header-user { display: flex; align-items: center; gap: var(--wa11y-spacing-spacing-8); padding-inline-start: var(--wa11y-spacing-spacing-24); border-inline-start: 1px solid var(--app-border); }
+.header-user { position: relative; }
+.profile-trigger.wa-button { padding: var(--wa11y-spacing-spacing-4); }
+.profile-panel.wa-sidebar-popover { position: absolute; inset-inline-end: 0; inset-block-start: calc(100% + var(--wa11y-spacing-spacing-8)); max-inline-size: calc(100vw - 32px); }
 .mobile-floating-navigation { display: none; }
 .app-sidebar { min-inline-size: 0; grid-area: sidebar; position: sticky; inset-block-start: 76px; align-self: start; block-size: calc(100vh - 76px); display: flex; flex-direction: column; gap: var(--wa11y-spacing-spacing-24); overflow-y: auto; padding: var(--wa11y-spacing-spacing-32) var(--wa11y-spacing-spacing-16) var(--wa11y-spacing-spacing-24); border-inline-end: 1px solid var(--app-border); background: var(--app-bg); }
 .dashboard-sidebar-menu { flex-shrink: 0; }

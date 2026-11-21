@@ -7,7 +7,7 @@ export type AvatarListingProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, '
   description?: ReactNode;
   avatar?: AvatarProps;
   size?: 16 | 24 | 32 | 40;
-  state?: 'default' | 'hover' | 'focus';
+  state?: 'default' | 'focus';
   hasDetails?: boolean;
   hasTitle?: boolean;
   hasDescription?: boolean;

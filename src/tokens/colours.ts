@@ -771,9 +771,7 @@ export const colours = {
     "type": "COLOR",
     "cssName": "--wa11y-user-profiles-primary-default",
     "valuesByMode": {
-      "Neutral": {
-        "$ref": "Primitives/Neutral/Light Grey"
-      },
+      "Neutral": { "$ref": "Primitives/Neutral/Dark" },
       "Public": {
         "$ref": "Primitives/Brand/Public (Old Rose)/Default"
       },
@@ -792,7 +790,7 @@ export const colours = {
       "Logged In": "#bfdbfb",
       "Public": "#f1c6d5",
       "Admin": "#d3ddca",
-      "Neutral": "#bbbbbb"
+      "Neutral": { "$ref": "Primitives/Neutral/Grey" }
     }
   },
   "User Profiles/Surface/Subtle": {
@@ -850,7 +848,7 @@ export const colours = {
       "Logged In": "#deedff",
       "Public": "#f8e4eb",
       "Admin": "#eef5e8",
-      "Neutral": "#676767"
+      "Neutral": { "$ref": "Primitives/Neutral/Grey" }
     }
   },
   "User Profiles/Surface/Default": {
@@ -880,7 +878,7 @@ export const colours = {
       "Logged In": "#043164",
       "Public": "#992424",
       "Admin": "#2d4616",
-      "Neutral": "#222222"
+      "Neutral": { "$ref": "Primitives/Neutral/Dark" }
     }
   }
 } as const;

@@ -40,6 +40,8 @@ test('preserves all original CSS selectors and declaration values', async () => 
 });
 
 test('public helpers return CSS references and correctly typed raw data', () => {
+  assert.deepEqual(tokens['User Profiles/Primary/Selected'].valuesByMode.Neutral, { $ref: 'Primitives/Neutral/Grey' });
+  assert.deepEqual(getTokenValue('User Profiles/Primary/Selected', { 'User Profiles': 'Neutral' }), getTokenValue('User Profiles/Primary/Hover', { 'User Profiles': 'Neutral' }));
   assert.equal(getTokenValue('Spacing/Spacing/16'), 16);
   assert.equal(getTokenValue('Components/Alert/showAlert'), true);
   assert.equal(getTokenValue('Components/Dropdown/Value 1'), 'Brazil');
@@ -49,13 +51,17 @@ test('public helpers return CSS references and correctly typed raw data', () => 
   assert.equal(styleVars['effect/Elevation 1'], 'var(--wa11y-style-effect-elevation-1)');
 });
 
-test('both profile defaults match across all modes and use palette references', () => {
-  for (const mode of ['Public', 'Logged In', 'Admin', 'Neutral']) {
+test('profile defaults preserve confirmed palettes and updated Neutral references', () => {
+  for (const mode of ['Public', 'Logged In', 'Admin']) {
     const modes = { 'User Profiles': mode };
     assert.deepEqual(getTokenValue('User Profiles/Primary/Default', modes), getTokenValue('User Profiles/Border/Default', modes));
     assert('$ref' in tokens['User Profiles/Primary/Default'].valuesByMode[mode]);
   }
   assert.deepEqual(getTokenValue('User Profiles/Border/Default', { 'User Profiles': 'Neutral' }), getTokenValue('Primitives/Neutral/Light Grey'));
+  for (const [name, target] of [['Default', 'Dark'], ['Hover', 'Grey'], ['Selected', 'Grey'], ['Dark', 'Dark']]) {
+    assert.deepEqual(tokens[`User Profiles/Primary/${name}`].valuesByMode.Neutral, { $ref: `Primitives/Neutral/${target}` });
+    assert.deepEqual(getTokenValue(`User Profiles/Primary/${name}`, { 'User Profiles': 'Neutral' }), getTokenValue(`Primitives/Neutral/${target}`));
+  }
 });
 
 test('missing paint and line-height data remains absent', () => {

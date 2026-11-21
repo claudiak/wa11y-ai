@@ -111,7 +111,7 @@ Use `pill` for 999px corners. Icon-only buttons use equal padding and remain per
 
 Link appearance is transparent and borderless, with status Dark colours for both icons and labels; User Profile follows Primary/Dark and Neutral uses Neutral/Dark. Use `variant="link"` for a labelled link appearance or `variant="icon-only" appearance="link"` for icon-only. Link appearance has a status background on hover; it remains a native button for actions. Every enabled variant has visible keyboard focus.
 
-**Contrast:** User Profile Primary follows the supplied white-on-brand design. In Neutral profile mode, its light-grey background makes that foreground insufficient for normal text; do not use that combination without an approved design adjustment. Use the `neutral` status (black background) when appropriate, or the Secondary variant with dark text. Focus uses a black 3px ring with no gap and remains visible in forced colours.
+**Contrast:** User Profile Primary follows the supplied white-on-brand design. Neutral now uses Neutral/Dark for Primary/Default and Primary/Dark, with Neutral/Grey for Hover and Selected; check actual contrast in each state. Focus uses a black 3px ring with no gap and remains visible in forced colours.
 
 ## Input
 
@@ -159,6 +159,8 @@ Supports unselected/selected, success/success-selected, error/error-selected, an
 
 ## Switch
 
+Enabled switches retain the supplied SVG geometry with profile-aware track/thumb colours. Disabled artwork stays unchanged; an explicit `assetBaseUrl` opts into the original fixed-colour image assets.
+
 ```tsx
 import { Switch } from 'wa11y-ai';
 <Switch aria-label="Notifications" on={enabled} onChange={e => setEnabled(e.target.checked)} />
@@ -175,7 +177,7 @@ import { Badge } from 'wa11y-ai';
 <Badge label="Filter" size="small" leadingIcon onDismiss={() => removeFilter()} />
 ```
 
-Eight statuses: user-profile, info, success, warning, destructive, dark, neutral, disabled. Supports default/small sizes and default/focus appearance (32 variants), shared alarm/close icons, application-provided avatar URL/content, and native keyboard-accessible dismissal. Disabled badges prevent dismissal; static badges do not add tab stops. Success uses the supplied Success/Dark background. User Profile in Neutral mode still needs review for white-on-light-grey text contrast.
+Eight statuses: user-profile, info, success, warning, destructive, dark, neutral, disabled. Supports default/small sizes and default/focus appearance (32 variants), shared alarm/close icons, application-provided avatar URL/content, and native keyboard-accessible dismissal. Disabled badges prevent dismissal; static badges do not add tab stops. Success uses the supplied Success/Dark background. User Profile in Neutral mode uses the updated Neutral/Dark primary background.
 
 ## Alert
 
@@ -206,7 +208,7 @@ import { AvatarListing } from 'wa11y-ai';
 <AvatarListing title={user.name} description={user.position} avatar={{ src: user.photo }} size={32} onClick={() => openProfile(user.id)} />
 ```
 
-Sizes 40/32/24/16 support default, hover, and focus states plus native keyboard activation, disabled behavior, and refs. `hasDetails`, `hasTitle`, `hasDescription`, and `hasDragDrop` mirror Figma; 16px omits the description. The grip is decorative; application reordering needs its own keyboard-accessible implementation. Hidden titles retain an accessible button name. The 40px reference uses application-provided Roboto Flex (override `--wa-avatar-listing-large-font-family`); smaller sizes use the existing Poppins typography. Component-specific 16/14px typography preserves this node without changing canonical H3/Body tokens.
+Sizes 40/32/24/16 use 4px corners and support default and focus states, with no hover appearance plus native keyboard activation, disabled behavior, and refs. `hasDetails`, `hasTitle`, `hasDescription`, and `hasDragDrop` mirror Figma; 16px omits the description. The grip is decorative; application reordering needs its own keyboard-accessible implementation. Hidden titles retain an accessible button name. The 40px reference uses application-provided Roboto Flex (override `--wa-avatar-listing-large-font-family`); smaller sizes use the existing Poppins typography. Component-specific 16/14px typography preserves this node without changing canonical H3/Body tokens.
 
 ## Card
 
@@ -264,7 +266,7 @@ import { MenuFloatMobile } from 'wa11y-ai';
 <MenuFloatMobile state={route} onNavigate={navigate} />
 ```
 
-Five default states: `home`, `records`, `reports`, `dashboard`, `more`. Optional `items` accepts `{ value, label, icon }` entries using those state keys to configure application destinations; `icon` is a Material Symbol name. Omit `state` for internal selection with `defaultState`. Each destination is a named native button; Tab and Enter/Space work without custom keyboard handling. The current destination exposes `aria-current="page"`. Applications handle view changes and destination focus in `onNavigate`. Shared Material Symbols replace the reference glyphs. The unavailable Surface/Elevated alias is not inferred: the selected pill uses the supplied Figma colour `#f1c6d5`, overridable through `--wa-menu-float-selected-background`.
+Five default states: `home`, `records`, `reports`, `dashboard`, `more`. Optional `items` accepts `{ value, label, icon }` entries using those state keys to configure application destinations; `icon` is a Material Symbol name. Omit `state` for internal selection with `defaultState`. Each destination is a named native button; Tab and Enter/Space work without custom keyboard handling. The current destination exposes `aria-current="page"`. Applications handle view changes and destination focus in `onNavigate`. Shared Material Symbols replace the reference glyphs. The unavailable Surface/Elevated alias is not inferred: the selected pill uses the available Primary/Hover profile palette, overridable through `--wa-menu-float-selected-background`; this does not define the missing Surface/Elevated alias.
 
 ## Sidebar navigation
 
@@ -276,11 +278,11 @@ import { SidebarMenuDesktop, SidebarMenuItemDropdown } from 'wa11y-ai';
 
 Pass `SidebarMenuItem` children to `SidebarMenuDesktop` to supply application navigation instead of the reference items; use `collapseIcon={false}` for a fixed expanded layout.
 
-Six exports compose the supplied designs: `SidebarMenuDesktop`, `SidebarMenuTitle`, `SidebarMenuItem` (Figma Sidebar Menu Item 2), `SidebarSubmenuItem`, `SidebarMenuItemDropdown`, and `SubmenuCollapsible`. Desktop supports default/collapsed/collapsed-submenu through controlled `state`/`onStateChange` or `defaultState`; `collapseIcon`, `showTitle`, and `text` configure the optional controls/caption. Item/subitem states are default/selected/hover/focus; `collapsed` maps Figma's M_ variants. Floating submenu items accept `items`, `selectedValue`, and `onSelectItem`.
+Six exports compose the supplied designs: `SidebarMenuDesktop`, `SidebarMenuTitle`, `SidebarMenuItem` (Figma Sidebar Menu Item 2), `SidebarSubmenuItem`, `SidebarMenuItemDropdown`, and `SubmenuCollapsible`. Desktop supports default/collapsed/collapsed-submenu through controlled `state`/`onStateChange` or `defaultState`; `collapseIcon`, `showTitle`, and `text` configure the optional controls/caption. Item/subitem states are default/selected/hover/focus; `collapsed` maps Figma's M_ variants. Floating submenu items accept `items`, `selectedValue`, and `onSelectItem`. For non-navigation choices such as profile selection, use `selectionMode="toggle"` to expose `aria-pressed` rather than a current-page state.
 
 Native buttons support Tab/Enter/Space. Disclosure triggers expose `aria-expanded`/`aria-controls`; Escape closes and restores trigger focus. Floating submenus also close on outside pointer interaction or selection. Collapsed controls retain names; navigation callbacks select application views. No menu roles or trapped focus are added. The application provides Roboto Flex through `--wa-sidebar-font-family` and the workspace image.
 
-The canonical Surface/Elevated and Text/Tertiary tokens remain missing. Only this component's explicitly supplied header/caption values are used through `--wa-sidebar-header-background` (#F1C6D5) and `--wa-sidebar-caption-colour` (#999); no aliases are inferred or canonical values changed. Floating submenus reuse the existing Elevation 3 token.
+The canonical Surface/Elevated and Text/Tertiary tokens remain missing. The header now follows the available Primary/Hover profile palette through `--wa-sidebar-header-background`; the supplied caption remains `--wa-sidebar-caption-colour` (#999). This component styling does not define either missing alias or change canonical values. Floating submenus reuse the existing Elevation 3 token.
 
 ## Breadcrumbs
 
@@ -358,7 +360,7 @@ Supported CSS values are `public`, `logged-in`, `admin`, and `neutral`. Typed ac
 getTokenValue('User Profiles/Primary/Default', { 'User Profiles': 'Logged In' });
 ```
 
-Primary/Default and Border/Default share the confirmed palette references in all four modes: Public `#9E4E5E`, Logged In `#104C91`, Admin `#556752`, Neutral `#E4E4E4`. 
+Primary/Default and Border/Default share palette references in Public (`#9E4E5E`), Logged In (`#104C91`), and Admin (`#556752`). Neutral Primary/Default and Primary/Dark reference Primitives/Neutral/Dark; Neutral Primary/Hover and Primary/Selected reference Primitives/Neutral/Grey. Neutral Border/Default remains Primitives/Neutral/Light Grey.
 
 Collections have independent modes. The original first mode remains the default; User Profiles defaults to Public. **Light/Dark themes are not supplied.** Palette names containing Light or Dark describe shades. Root-level mode selection is supported; nested theme scopes are not, because inherited CSS aliases resolve where they are declared.
 
@@ -366,7 +368,7 @@ Collections have independent modes. The original first mode remains the default;
 
 Run `npm run accessibility:check` against the running playground using Chrome (`CHROME_PATH` overrides the executable; `PLAYGROUND_URL` overrides its URL). The development-only axe/Playwright check audits every category, all four profiles, mobile reflow and tooltip placement. It exits unsuccessfully while violations remain; do not treat automated checks as WCAG certification. Use VoiceOver/NVDA, zoom/text-spacing and forced-colour testing before a release.
 
-Known contrast gaps: Neutral-profile primary buttons/badges are 1.27:1; Neutral selected sidebar text is 2.81:1. Neutral placeholder text also needs an approved colour pairing. Input and Dropdown standard borders use Border/Focus, for the enabled default state. Native inputs/selects, button names, switch state, labels, error descriptions, sorting, mixed selection, disclosure state, breadcrumbs, tooltip relationships and skip destinations are covered by behavior checks. Application code must supply meaningful labels, validation messages and navigation destinations; after removing a focused component, move focus to an appropriate surviving control.
+The updated Neutral primary background resolves the former white-on-light-grey button/badge contrast issue. Neutral Primary/Selected and Primary/Hover both reference Neutral/Grey, using Text/Primary for selected text. Neutral placeholder text also needs an approved colour pairing. Input and Dropdown standard borders use Border/Focus, for the enabled default state. Native inputs/selects, button names, switch state, labels, error descriptions, sorting, mixed selection, disclosure state, breadcrumbs, tooltip relationships and skip destinations are covered by behavior checks. Application code must supply meaningful labels, validation messages and navigation destinations; after removing a focused component, move focus to an appropriate surviving control.
 
 ## Known limitations
 

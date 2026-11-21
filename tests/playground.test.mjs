@@ -27,7 +27,37 @@ function openPlayground(hash = '') {
 }
 afterEach(() => { for (const window of openWindows.splice(0)) window.close(); });
 
-test('HTML loads the self-contained browser bundle with no unresolved external imports', () => {
+test('Accessibility supports direct links, keyboard switching, profile modes, and hidden token filters', async () => {
+  const { document, window, user, errors } = openPlayground('#accessibility');
+  const tabs = within(document.querySelector('.categories'));
+  const selected = tabs.getByRole('button', { name: 'Accessibility', exact: true });
+  assert.equal(document.querySelector('.categories').firstElementChild.dataset.category, 'components');
+  assert.equal(selected.getAttribute('aria-pressed'), 'true');
+  assert.equal(document.querySelector('#results-title').textContent, 'Accessible by design. Inclusive by practice.');
+  for (const id of ['search', 'collection']) {
+    assert(document.getElementById(id).disabled);
+    assert(document.getElementById(id).closest('.field').hidden);
+  }
+  assert.equal(document.querySelectorAll('.accessibility-guides li').length, 13);
+  const external = within(document.querySelector('#grid')).getByRole('link', { name: 'Explore wa11y.io' });
+  assert.equal(external.getAttribute('href'), 'https://wa11y.io');
+  assert.equal(external.getAttribute('target'), '_blank');
+  assert.equal(external.getAttribute('rel'), 'noopener noreferrer');
+  assert(document.getElementById(external.getAttribute('aria-describedby')));
+  await user.selectOptions(document.querySelector('#profile'), 'Admin');
+  assert.equal(document.documentElement.getAttribute('data-wa11y-user-profiles-mode'), 'admin');
+  const colours = tabs.getByRole('button', { name: 'Colours', exact: true });
+  colours.focus(); await user.keyboard('{Enter}');
+  assert.equal(window.location.hash, '#colours');
+  assert(!document.querySelector('#search').disabled);
+  assert(!document.querySelector('#search').closest('.field').hidden);
+  selected.focus(); await user.keyboard(' ');
+  assert.equal(window.location.hash, '#accessibility');
+  assert.equal(document.querySelectorAll('.accessibility-view').length, 1);
+  assert.deepEqual(errors, []);
+});
+
+test('HTML loads the self-contained browser bundle with Components first and selected by default', async () => {
   assert.match(html, /<script type="module" src="\.\/\.generated\/playground\.js"><\/script>/);
   for (const [name, file] of Object.entries(output.metafile.outputs)) {
     if (name.endsWith('.js')) assert.deepEqual(file.imports, []);
@@ -37,7 +67,9 @@ test('HTML loads the self-contained browser bundle with no unresolved external i
     }
   }
   const { document, errors } = openPlayground();
-  assert.equal(document.querySelectorAll('#grid .card').length, 80);
+  assert.equal(document.querySelector('.categories').firstElementChild.dataset.category, 'components');
+  assert.equal(document.querySelector('[data-category=components]').getAttribute('aria-pressed'), 'true');
+  await waitFor(() => assert(document.querySelector('.button-playground')), { container: document.body });
   assert.deepEqual(errors, []);
 });
 
@@ -47,7 +79,7 @@ test('all token tabs update the selected button, heading, URL, and content', asy
   for (const [name, category, count] of [
     ['Typography', 'typography', 33], ['Spacing & size', 'dimensions', 24],
     ['Corner radius', 'radii', 6], ['Effects', 'effects', 4],
-    ['Configuration', 'configuration', 7], ['Colours', 'colours', 80],
+    ['Colours', 'colours', 80],
   ]) {
     const button = tabs.getByRole('button', { name, exact: true });
     await user.click(button);

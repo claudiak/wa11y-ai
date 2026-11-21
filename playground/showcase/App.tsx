@@ -1,5 +1,5 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { Alert, Avatar, AvatarListing, Badge, BreadcrumbsGroup, Button, Card, Checkbox, DataGridCell, DataHeader, Dropdown, Icon, Input, MainMenuItem, MenuFloatMobile, ProgressBar, RadioButton, SidebarMenuDesktop, SidebarMenuItem, SkipContent, Switch } from '../../src/index.js';
+import { Alert, Avatar, AvatarListing, Badge, BreadcrumbsGroup, Button, Card, Checkbox, DataGridCell, DataHeader, Dropdown, Icon, Input, MainMenuItem, MenuFloatMobile, ProgressBar, RadioButton, SidebarMenuDesktop, SidebarMenuItem, SkipContent, SubmenuCollapsible, Switch } from '../../src/index.js';
 import { RevenueChart, ChannelChart, WorkloadChart } from './charts.js';
 import { accounts as initialAccounts, activity, money, revenue, type Account, type AccountStatus } from './data.js';
 
@@ -9,6 +9,31 @@ type View = 'overview' | 'accounts' | 'settings';
 const pages = { overview: 'Overview', accounts: 'Accounts', settings: 'Settings' };
 const route = (): View => location.hash === '#accounts' ? 'accounts' : location.hash === '#settings' ? 'settings' : 'overview';
 const initials = (name: string) => name.split(/\s+/).map(word => word[0]).join('').slice(0, 2).toUpperCase();
+const profileOptions = [{ value: 'public', label: 'Public' }, { value: 'logged-in', label: 'Logged In' }, { value: 'admin', label: 'Admin' }, { value: 'neutral', label: 'Neutral' }];
+
+function ProfileMenu({ name }: { name: string }) {
+  const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState(() => document.documentElement.getAttribute('data-wa11y-user-profiles-mode') ?? 'public');
+  const root = useRef<HTMLDivElement>(null), trigger = useRef<HTMLButtonElement>(null), panelId = useId();
+  const label = profileOptions.find(item => item.value === profile)?.label ?? 'Public';
+  useEffect(() => { document.documentElement.setAttribute('data-wa11y-user-profiles-mode', profile); }, [profile]);
+  useEffect(() => {
+    if (!open) return;
+    const outside = (event: PointerEvent) => { if (event.target instanceof Node && !root.current?.contains(event.target)) setOpen(false); };
+    document.addEventListener('pointerdown', outside);
+    return () => document.removeEventListener('pointerdown', outside);
+  }, [open]);
+  return <div ref={root} className="header-user" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}
+    onKeyDown={event => { if (event.key === 'Escape' && open) { event.preventDefault(); event.stopPropagation(); setOpen(false); trigger.current?.focus(); } }}>
+    <Button ref={trigger} className="profile-trigger" variant="icon-only" appearance="link" status="neutral"
+      leadingIcon={<Avatar variant="initials" size={32} initials={initials(name)} alt="" aria-hidden="true" />}
+      aria-label={`Change user profile. Current profile: ${label}`} aria-expanded={open} aria-controls={open ? panelId : undefined}
+      onClick={() => setOpen(current => !current)} />
+    {open && <SubmenuCollapsible id={panelId} className="profile-panel" role="group" aria-label="User profiles" items={profileOptions}
+      selectedValue={profile} selectionMode="toggle" onSelectItem={value => { setProfile(value); setOpen(false); trigger.current?.focus(); }} />}
+    <span className="sr-only" role="status">User profile: {label}</span>
+  </div>;
+}
 const status = (value: AccountStatus) => <Badge size="small" status={value === 'Active' ? 'success' : value === 'At risk' ? 'destructive' : value === 'Trial' ? 'warning' : 'neutral'} label={value} />;
 
 function Dialog({ title, description, onClose, children }: { title: string; description: string; onClose: () => void; children: ReactNode }) {
@@ -87,7 +112,7 @@ export default function App() {
       <a className="product-brand" href="../" aria-label="wa11y-ai playground"><img className="brand-mark" src="../assets/avatars/wa11y-favicon.png" width={36} height={36} alt="" /><span>wa11y-ai</span></a>
       <div className="workspace-context"><span className="workspace-name">Studio workspace</span><Badge size="small" status="warning" label="Growth plan" /></div>
       <MainMenuItem className="back-to-system" href="../" label="Design system" leadingIcon={false} />
-      <div className="header-user"><Avatar variant="initials" size={32} initials={initials(preferences.name)} alt={preferences.name} /></div>
+      <ProfileMenu name={preferences.name} />
     </header>
     <aside className="app-sidebar">
       <SidebarMenuDesktop id="dashboard-navigation" className="dashboard-sidebar-menu" label="Workspace" titleTrailingIcon={false} state={sidebarCollapsed ? 'collapsed' : 'default'} onStateChange={state => setSidebarCollapsed(state !== 'default')} aria-label="Workspace navigation" onNavigate={() => navigate('overview')}>
@@ -105,7 +130,7 @@ export default function App() {
     <main id="dashboard-main" tabIndex={-1} className="dashboard-main">
       <BreadcrumbsGroup items={[{ label: 'Workspace', href: '#overview', onClick: event => { event.preventDefault(); navigate('overview'); } }, { label: pages[view] }]} />
       <div className="page-heading"><div><p className="eyebrow">WA11Y / YOUR WORKSPACE, IN FOCUS</p><h1 ref={heading} tabIndex={-1}>{view === 'overview' ? 'Business overview' : view === 'accounts' ? 'Good relationships. Better growth.' : 'Make it your workspace.'}</h1><p>{view === 'overview' ? 'Revenue, customers, and the work moving your business forward.' : view === 'accounts' ? 'A thoughtful home for every account, from first hello to what’s next.' : 'Your profile, notifications, and the details that help you do your best work.'}</p></div>
-        {view !== 'settings' && <div className="page-actions"><Button variant="secondary" status="neutral" leadingIcon={<Icon name="download" size={20} />} onClick={exportData}>Export data</Button><Button ref={addTrigger} status="action" leadingIcon={<Icon name="add" size={20} />} onClick={() => setAdding(true)}>Add account</Button></div>}
+        {view !== 'settings' && <div className="page-actions"><Button variant="secondary" status="action" leadingIcon={<Icon name="download" size={20} />} onClick={exportData}>Export data</Button><Button ref={addTrigger} status="action" leadingIcon={<Icon name="add" size={20} />} onClick={() => setAdding(true)}>Add account</Button></div>}
       </div>
       {notice && <Alert className="app-notice" type="success" title={notice} hasDescription={false} onDismiss={() => { setNotice(''); requestAnimationFrame(() => heading.current?.focus()); }} dismissLabel="Dismiss notification" />}
       {view === 'overview' && <>

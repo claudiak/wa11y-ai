@@ -1,11 +1,11 @@
-import { getTokenValue, tokenVar, styleVars, type ModeSelection } from 'wa11y-ai';
+import { getTokenValue, tokenVar, styleVars, type ModeSelection, type Colour } from 'wa11y-ai';
 
 const spacing: number = getTokenValue('Spacing/Spacing/16');
 const show: boolean = getTokenValue('Components/Alert/showAlert');
 const country: string = getTokenValue('Components/Dropdown/Value 1');
 const colour: Readonly<{ r: number; g: number; b: number; a: number }> = getTokenValue('Primitives/Text/Primary');
 const modes: ModeSelection = { 'User Profiles': 'Logged In', Primitives: 'Value' };
-const profile: string = getTokenValue('User Profiles/Primary/Hover', modes);
+const profile: string | Colour = getTokenValue('User Profiles/Primary/Hover', modes);
 const profileDefault: Readonly<{ r: number; g: number; b: number; a: number }> = getTokenValue('User Profiles/Primary/Default', modes);
 const borderDefault: Readonly<{ r: number; g: number; b: number; a: number }> = getTokenValue('User Profiles/Border/Default', modes);
 const css: 'var(--wa11y-spacing-spacing-16)' = tokenVar('Spacing/Spacing/16');

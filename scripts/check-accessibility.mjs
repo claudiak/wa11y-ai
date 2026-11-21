@@ -5,10 +5,78 @@ const require = createRequire(import.meta.url);
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 const findings = [], reflow = [], interactions = [];
-const categories = process.argv.includes('--components-only') ? ['components'] : ['colours', 'typography', 'dimensions', 'radii', 'effects', 'configuration', 'components'];
+const categories = process.argv.includes('--components-only') ? ['components'] : ['colours', 'typography', 'dimensions', 'radii', 'effects', 'accessibility', 'components'];
 try {
-  await page.goto(process.env.PLAYGROUND_URL ?? 'http://127.0.0.1:4173/playground/');
+  await page.goto((process.env.PLAYGROUND_URL ?? 'http://127.0.0.1:4173/playground/') + (process.argv.includes('--accessibility-only') ? '#accessibility' : ''));
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+  if (process.argv.includes('--profiles-only')) {
+    await page.locator('#tooltip-heading').waitFor();
+    const observed = [];
+    for (const mode of ['Public', 'Logged In', 'Admin', 'Neutral']) {
+      await page.selectOption('#profile', { label: mode });
+      await page.locator('#tooltip-heading').waitFor();
+      const colours = await page.evaluate(() => {
+        const colour = name => {
+          const probe = document.createElement('span'); probe.style.background = `var(${name})`; document.body.append(probe);
+          const value = getComputedStyle(probe).backgroundColor; probe.remove(); return value;
+        };
+        return {
+          primary: colour('--wa11y-user-profiles-primary-default'), hover: colour('--wa11y-user-profiles-primary-hover'),
+          sidebar: getComputedStyle(document.querySelector('.wa-sidebar-title')).backgroundColor,
+          mobile: getComputedStyle(document.querySelector('.wa-menu-float__item[aria-current]')).backgroundColor,
+          switch: getComputedStyle(document.querySelector('.wa-switch[data-state="default"][data-on="true"] .wa-switch__track')).fill,
+        };
+      });
+      assert.equal(colours.sidebar, colours.hover); assert.equal(colours.mobile, colours.hover); assert.equal(colours.switch, colours.primary);
+      observed.push(colours.primary);
+      const switched = page.locator('.wa-switch[data-state="default"] .wa-switch__control').first();
+      await switched.focus(); const previous = await switched.isChecked(); await page.keyboard.press('Space'); assert.equal(await switched.isChecked(), !previous);
+      const audit = await page.evaluate(async () => (await window.axe.run(document.querySelector('.wa-switch'), { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag22aa'] } })).violations.map(v => v.id));
+      assert.deepEqual(audit, []);
+    }
+    assert.equal(new Set(observed).size, 4);
+    console.log('Profile checks passed in all four modes: sidebar, floating menu, switch colours, switch keyboard activation and targeted axe.');
+    await browser.close(); process.exit(0);
+  }
+  if (process.argv.includes('--accessibility-only')) {
+    await page.getByRole('heading', { name: 'Accessible by design. Inclusive by practice.' }).waitFor();
+    for (const mode of ['Public', 'Logged In', 'Admin', 'Neutral']) {
+      await page.selectOption('#profile', { label: mode });
+      const audit = await page.evaluate(async () => {
+        const result = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'] } });
+        return { violations: result.violations.map(v => ({ id: v.id, targets: v.nodes.map(n => n.target) })), incomplete: result.incomplete.map(v => v.id) };
+      });
+      console.log(JSON.stringify({ mode, ...audit }));
+      assert.equal(audit.violations.length, 0, `Accessibility guidance violations in ${mode}`);
+    }
+    const colours = page.getByRole('button', { name: 'Colours', exact: true });
+    await colours.focus(); await page.keyboard.press('Enter');
+    assert(!(await page.locator('#search').isDisabled()));
+    const category = page.getByRole('button', { name: 'Accessibility', exact: true });
+    await category.focus(); await page.keyboard.press('Space');
+    await page.waitForURL(url => url.hash === '#accessibility');
+    assert(page.url().endsWith('#accessibility'));
+    assert(!(await page.locator('#search').isVisible()));
+    assert(await page.locator('#profile').isVisible());
+    for (const name of ['accessibility checks', 'known limitations', 'Explore wa11y.io']) {
+      await page.keyboard.press('Tab');
+      const link = page.getByRole('link', { name, exact: true });
+      assert(await link.evaluate(element => document.activeElement === element), `Keyboard order: ${name}`);
+      assert.equal(await link.evaluate(element => getComputedStyle(element).outlineWidth), '3px');
+    }
+    await page.getByRole('link', { name: 'Explore wa11y.io' }).evaluate(element => element.addEventListener('click', event => { event.preventDefault(); element.dataset.activated = 'true'; }, { once: true }));
+    await page.keyboard.press('Enter');
+    assert.equal(await page.getByRole('link', { name: 'Explore wa11y.io' }).getAttribute('data-activated'), 'true');
+    for (const width of [320, 640, 768, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Reflow at ${width}px`);
+    }
+    await page.addStyleTag({ content: '.accessibility-view * { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; } .accessibility-view p { margin-bottom: 2em !important; }' });
+    await page.setViewportSize({ width: 320, height: 1000 });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Text-spacing override reflow');
+    console.log('Accessibility guidance passed: axe in four profiles, keyboard switching/order/focus/activation, 320–1440px reflow, and text-spacing overrides.');
+    await browser.close(); process.exit(0);
+  }
   for (const category of [...categories, 'Logged In', 'Admin', 'Neutral']) {
     const mode = ['Logged In', 'Admin', 'Neutral'].includes(category);
     if (mode) await page.selectOption('#profile', { label: category });

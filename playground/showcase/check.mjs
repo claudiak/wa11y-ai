@@ -1,5 +1,6 @@
 import { chromium } from 'playwright-core';
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
 page.setDefaultTimeout(8000);
@@ -8,6 +9,41 @@ page.on('pageerror', error => errors.push(error.message));
 try {
   await page.goto('http://127.0.0.1:4173/playground/showcase/index.html');
   await page.getByRole('heading', { name: 'Business overview', exact: true }).waitFor();
+  if (process.argv.includes('--profile-menu-only')) {
+    await page.addScriptTag({ path: createRequire(import.meta.url).resolve('axe-core/axe.min.js') });
+    const trigger = page.getByRole('button', { name: /^Change user profile/ });
+    const colours = [];
+    for (const [label, value] of [['Public', 'public'], ['Logged In', 'logged-in'], ['Admin', 'admin'], ['Neutral', 'neutral']]) {
+      await trigger.click();
+      const panel = page.getByRole('group', { name: 'User profiles' });
+      assert.equal(await panel.getByRole('button').count(), 4);
+      await panel.getByRole('button', { name: label, exact: true }).click();
+      assert.equal(await page.locator('html').getAttribute('data-wa11y-user-profiles-mode'), value);
+      assert.equal(await trigger.getAttribute('aria-expanded'), 'false');
+      assert(await trigger.evaluate(element => document.activeElement === element));
+      colours.push(await page.locator('.dashboard-sidebar-menu .wa-sidebar-title').evaluate(element => getComputedStyle(element).backgroundColor));
+      await page.keyboard.press('Enter');
+      assert.equal(await panel.getByRole('button', { name: label, exact: true }).getAttribute('aria-pressed'), 'true');
+      assert.deepEqual(await panel.evaluate(async element => (await window.axe.run(element, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag22aa'] } })).violations.map(v => v.id)), []);
+      await page.keyboard.press('Tab');
+      assert(await panel.getByRole('button', { name: 'Public', exact: true }).evaluate(element => document.activeElement === element));
+      await page.keyboard.press('Escape');
+      assert(await trigger.evaluate(element => document.activeElement === element));
+    }
+    assert.equal(new Set(colours).size, 4);
+    await trigger.click(); await page.getByRole('heading', { name: 'Business overview', exact: true }).click();
+    assert.equal(await trigger.getAttribute('aria-expanded'), 'false');
+    for (const width of [320, 390, 768]) {
+      await page.setViewportSize({ width, height: 844 });
+      await trigger.click();
+      const box = await page.locator('.profile-panel').boundingBox();
+      assert(box.x >= 0 && box.x + box.width <= width, 'Profile panel fits viewport');
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await page.keyboard.press('Escape');
+    }
+    console.log('Profile panel passed: all modes/colour changes, selected state, keyboard/Escape/focus return, outside dismissal, mobile fit, and targeted axe.');
+    await browser.close(); process.exit(0);
+  }
   if (process.argv.includes('--mobile-nav-only')) {
     for (const width of [320, 390, 760]) {
       await page.setViewportSize({ width, height: 844 });

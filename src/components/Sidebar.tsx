@@ -61,15 +61,17 @@ const submenuOptions: readonly SidebarSubmenuOption[] = [
   { value: 'family', label: 'Family' }, { value: 'friends', label: 'Friends' },
 ];
 export type SubmenuCollapsibleProps = HTMLAttributes<HTMLDivElement> & {
+  selectionMode?: 'navigation' | 'toggle';
   items?: readonly SidebarSubmenuOption[];
   selectedValue?: string;
   onSelectItem?: (value: string) => void;
 };
 export const SubmenuCollapsible = forwardRef<HTMLDivElement, SubmenuCollapsibleProps>(function SubmenuCollapsible({
-  items = submenuOptions, selectedValue = 'school', onSelectItem, className, ...props
+  items = submenuOptions, selectedValue = 'school', onSelectItem, selectionMode = 'navigation', className, ...props
 }, ref) {
   return <div {...props} ref={ref} className={['wa-sidebar-popover', className].filter(Boolean).join(' ')}>
     {items.map(item => <SidebarSubmenuItem key={item.value} label={item.label} collapsed disabled={item.disabled}
+      aria-current={selectionMode === 'toggle' ? false : undefined} aria-pressed={selectionMode === 'toggle' ? selectedValue === item.value : undefined}
       state={selectedValue === item.value ? 'selected' : 'default'} onClick={() => onSelectItem?.(item.value)} />)}
   </div>;
 });

@@ -5,7 +5,7 @@ mountHeaderNavigation(document.querySelector('#header-navigation'));
 
 const grid = document.querySelector('#grid'), search = document.querySelector('#search');
 const profile = document.querySelector('#profile'), filter = document.querySelector('#collection');
-let category = 'colours';
+let category = 'components';
 let unmountComponent = null;
 let renderVersion = 0;
 for (const c of collections) { const option = document.createElement('option'); option.value = c.name; option.textContent = c.name; filter.append(option); }
@@ -15,8 +15,8 @@ const categories = {
   dimensions: ['Spacing & size', 'Original pixel dimensions for rhythm, icons, and avatars.'],
   radii: ['Corner radius', 'The original corner-radius scale, including the 999px full radius.'],
   effects: ['Effects', 'Four elevation styles, with every shadow layer preserved.'],
-  configuration: ['Configuration', 'String and boolean values for programmatic use.'],
   components: ['Components', 'Reusable React components built with the shared tokens.'],
+  accessibility: ['Accessible by design. Inclusive by practice.', "Accessibility doesn't end with a component. Learn what wa11y-ai provides, what you need to consider, and how to validate your work."],
 };
 if (Object.hasOwn(categories, location.hash.slice(1))) category = location.hash.slice(1);
 function node(tag, className, text) { const e = document.createElement(tag); if (className) e.className = className; if (text !== undefined) e.textContent = text; return e; }
@@ -46,6 +46,14 @@ function render() {
   grid.replaceChildren();
   document.querySelector('#results-title').textContent = categories[category][0];
   document.querySelector('#description').textContent = categories[category][1];
+  const guidance = category === 'accessibility';
+  for (const control of [search, filter]) { control.disabled = guidance; control.closest('.field').hidden = guidance; }
+  document.querySelector('.skip-link').textContent = guidance ? 'Skip to accessibility guidance' : 'Skip to tokens';
+  if (guidance) {
+    grid.append(document.querySelector('#accessibility-guidance').content.cloneNode(true));
+    document.querySelector('#result-count').textContent = 'Accessibility guidance';
+    return;
+  }
   const modes = { 'User Profiles': profile.value }, query = search.value.trim().toLowerCase();
   if (category === 'components') {
     const container = node('div', 'component-preview'); grid.append(container);
@@ -57,7 +65,7 @@ function render() {
   }
   for (const [key, token] of Object.entries(tokens)) {
     const collection = key.split('/')[0];
-    const matches = category === 'colours' ? token.type === 'COLOR' : category === 'typography' ? collection === 'Typography' : category === 'dimensions' ? ['Spacing', 'Size'].includes(collection) : category === 'radii' ? collection === 'Radius' : category === 'configuration' ? collection === 'Components' : false;
+    const matches = category === 'colours' ? token.type === 'COLOR' : category === 'typography' ? collection === 'Typography' : category === 'dimensions' ? ['Spacing', 'Size'].includes(collection) : category === 'radii' ? collection === 'Radius' : false;
     const definition = collections.find(c => c.name === collection), mode = modes[collection] ?? definition.defaultMode;
     const raw = token.valuesByMode[mode], alias = raw && typeof raw === 'object' && '$ref' in raw ? raw.$ref : '';
     if (!matches || filter.value && filter.value !== collection || !`${key} ${alias}`.toLowerCase().includes(query)) continue;
@@ -67,6 +75,7 @@ function render() {
     else if (category === 'radii') { sample = node('div', 'sample dimension-sample'); const shape = node('div', 'radius-shape'); shape.style.borderRadius = cssVars[key]; sample.append(shape); }
     grid.append(card(key, sample, display(value) + (token.unit === 'px' ? 'px' : ''), alias ? `References ${alias}` : `Literal · ${mode}`, cssVars[key]));
   }
+  let heroRow;
   if (!filter.value) for (const [key, style] of Object.entries(styles)) {
     if (category === 'colours' && style.type === 'paint' && style.status === 'available' && key.toLowerCase().includes(query)) {
       const sample = node('div', 'sample'); sample.style.backgroundImage = styleVars[key];
@@ -76,15 +85,21 @@ function render() {
     if (category === 'typography' && style.type === 'text' && key.toLowerCase().includes(query)) {
       const sample = node('div', 'sample type-sample', 'Aa · A shared language');
       for (const property of Object.keys(style)) if (property !== 'type') sample.style[property] = styleVars[`${key}/${property}`];
-      const line = 'lineHeight' in style ? `Line height ${style.lineHeight}` : 'Line height not supplied';
-      grid.append(card(key, sample, `${style.fontFamily} · ${style.fontSize} · ${style.fontWeight}`, line, styleVars[`${key}/fontSize`]));
+      const recommendedLineHeight = /^text\/(Hero|H[12]$)/.test(key) ? 1.2 : /^text\/H[34]$/.test(key) ? 1.3 : key.startsWith('text/Body') ? 1.5 : 1.4;
+      if (!('lineHeight' in style)) sample.style.lineHeight = String(recommendedLineHeight);
+      const line = 'lineHeight' in style ? `Line height ${style.lineHeight} · supplied` : `Recommended line height: ${recommendedLineHeight} · preview only`;
+      const preview = card(key, sample, `${style.fontFamily} · ${style.fontSize} · ${style.fontWeight}`, line, styleVars[`${key}/fontSize`]);
+      if (key === 'text/Hero Title' || key === 'text/Hero Subtitle') {
+        if (!heroRow) { heroRow = node('section', 'hero-type-row'); heroRow.setAttribute('aria-label', 'Hero typography'); grid.append(heroRow); }
+        heroRow.append(preview);
+      } else grid.append(preview);
     }
     if (category === 'effects' && style.type === 'effect' && key.toLowerCase().includes(query)) {
       const sample = node('div', 'sample effect-sample'), shape = node('div', 'effect-shape'); shape.style.boxShadow = styleVars[key]; sample.append(shape);
       grid.append(card(key, sample, style.boxShadow, 'Original multi-layer shadow', styleVars[key]));
     }
   }
-  const count = grid.children.length;
+  const count = grid.querySelectorAll('.card').length;
   document.querySelector('#result-count').textContent = `${count} ${count === 1 ? 'item' : 'items'}`;
   if (!count) grid.append(node('p', 'empty', 'No matching tokens or styles. Try another search or collection.'));
 }
